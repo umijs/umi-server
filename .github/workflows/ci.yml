@@ -15,9 +15,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node_version }}
-    - run: npm install
-    - run: npm run build
-    - run: npm run test -- --forceExit
+    - run: yarn install
+    - run: yarn build
+    - run: yarn test -- --forceExit
+    - run: yarn coveralls
       env:
         CI: true
         HEADLESS: false
