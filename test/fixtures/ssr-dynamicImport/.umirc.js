@@ -1,11 +1,8 @@
-
-import { join } from 'path';
-
 export default {
   ssr: true,
   plugins: [
     [
-      join(__dirname, '..', '..', '..', '..', 'umi-plugin-react', 'lib', 'index.js'),
+      'umi-plugin-react',
       {
         dynamicImport: {
           webpackChunkName: true,

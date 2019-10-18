@@ -2,7 +2,6 @@ import { join } from 'path';
 import { readdirSync } from 'fs';
 import { fork } from 'child_process';
 import { winPath } from 'umi-utils';
-import umiBin from 'umi/bin/umi'
 import server from '..';
 
 async function build({ cwd }) {
@@ -11,8 +10,9 @@ async function build({ cwd }) {
       COMPRESS: 'none',
       PROGRESS: 'none',
       COVERAGE: 1,
+      UMI_UI: 'none',
     };
-    const child = fork(umiBin, ['build'], {
+    const child = fork(join(process.cwd(), 'node_modules', '.bin', 'umi'), ['build'], {
       cwd,
       env,
     });
@@ -42,6 +42,7 @@ describe('build', () => {
   });
 
   it('ssr', async () => {
+    console.log('qwefqwfewqf');
     const render = server({
       root: join(fixtures, 'ssr', 'dist'),
       publicPath: '/',
