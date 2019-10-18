@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "module": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "typings": "index.d.ts",
   "scripts": {
     "build": "father-build",
     "test": "umi-test --coverage",
@@ -12,6 +12,8 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "files": [
+    "index.js",
+    "index.d.ts",
     "bin",
     "lib"
   ],
