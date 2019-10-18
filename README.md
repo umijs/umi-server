@@ -1,6 +1,8 @@
 # umi-server
 
-A runtime render tool for Umijs Server-Side Rendering.
+[![Coverage Status](https://coveralls.io/repos/github/umijs/umi-server/badge.svg?branch=master)](https://coveralls.io/github/umijs/umi-server?branch=master) [![NPM version](https://img.shields.io/npm/v/umi-server.svg?style=flat)](https://npmjs.org/package/umi-server) [![NPM downloads](http://img.shields.io/npm/dm/umi-server.svg?style=flat)](https://npmjs.org/package/umi-server) [![CircleCI](https://circleci.com/gh/umijs/umi-server/tree/master.svg?style=svg)](https://circleci.com/gh/umijs/umi-server/tree/master) [![Build Status](https://img.shields.io/travis/umijs/umi.svg?style=flat)](https://travis-ci.org/umijs/umi-server) [![GitHub Actions status](https://github.com/umijs/umi-server/workflows/Node%20CI/badge.svg)](https://github.com/umijs/umi-server)[![Build Status](https://img.shields.io/travis/umijs/umi.svg?style=flat)](https://travis-ci.org/umijs/umi-server) [![GitHub Actions status](https://github.com/umijs/umi-server/workflows/Node%20CI/badge.svg)](https://github.com/umijs/umi-server)
+
+🚀 A runtime render tool for Umijs Server-Side Rendering.
 
 ## Quick Start
 
@@ -86,4 +88,4 @@ interface IConfig {
 type IHandler = (html: string, args: IArgs) => string;
 ```
 
-more example usages in [test cases](https://github.com/umijs/umi/blob/master/packages/umi-server/test/index.test.ts).
+more example usages in [test cases](https://github.com/umijs/umi-server/blob/master/test/index.test.ts).

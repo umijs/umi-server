@@ -8,7 +8,8 @@
   "scripts": {
     "build": "father-build",
     "test": "umi-test --coverage",
-    "prepublishOnly": "npm run build && np --no-cleanup --yolo --no-publish"
+    "prepublishOnly": "npm run build && np --no-cleanup --yolo --no-publish",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "files": [
     "bin",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@types/cheerio": "^0.22.13",
     "@types/jest": "^24.0.19",
+    "coveralls": "^3.0.7",
     "father-build": "^1.13.1",
     "np": "^5.0.1",
     "umi": "^2.10.6",
