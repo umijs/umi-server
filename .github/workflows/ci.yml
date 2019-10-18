@@ -18,7 +18,6 @@ jobs:
     - run: yarn install
     - run: yarn build
     - run: yarn test -- --forceExit
-    - run: yarn coveralls
       env:
         CI: true
         HEADLESS: false
