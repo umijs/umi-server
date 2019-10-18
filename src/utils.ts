@@ -1,8 +1,7 @@
-import { join } from 'path';
 import ssrPolyfill from 'ssr-polyfill';
 import { parse } from 'url';
 import { load } from 'cheerio';
-import { existsSync } from 'fs';
+import _log from './debug';
 import { IHandler } from './index';
 
 export const _getDocumentHandler = (html: string, option: object = {}): ReturnType<typeof load> => {
@@ -19,6 +18,7 @@ declare var global: {
 
 export const injectChunkMaps: IHandler = (html, args) => {
   const { publicPath, chunkMap, load } = args;
+  _log('injectChunkMaps', chunkMap);
   const { js, css } = chunkMap;
   const $ = load(html);
   // filter umi.css and umi.*.css, htmlMap have includes

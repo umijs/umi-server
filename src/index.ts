@@ -2,6 +2,7 @@
 import { join } from 'path';
 import { load } from 'cheerio';
 import compose from './compose';
+import _log from './debug';
 import { nodePolyfillDecorator, patchDoctype, injectChunkMaps, _getDocumentHandler } from './utils';
 
 interface ICunkMap {
@@ -58,6 +59,8 @@ const server: IServer = config => {
   const manifestFile = require(manifest);
   const { ReactDOMServer } = serverRender;
 
+  _log('manifestFile', _log);
+
   return async ctx => {
     const {
       req: { url },
@@ -83,6 +86,8 @@ const server: IServer = config => {
     );
     // compose all html handlers
     const ssrHtml = composeRender(renderString, handlerOpts);
+
+    _log('ssrHtml', _log);
 
     // enable render rootContainer
     // const ssrHtmlElement =
