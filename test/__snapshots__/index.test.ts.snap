@@ -5,7 +5,7 @@ exports[`build ssr-dynamicImport 1`] = `
   window.g_initialData = {\\"list\\":[{\\"name\\":\\"Alice\\"},{\\"name\\":\\"Jack\\"},{\\"name\\":\\"Tony\\"}]};</script><script>window.routerBase = \\"/\\";</script><link rel=\\"preload\\" href=\\"/p__index.async.js\\" as=\\"script\\"></head><body><div id=\\"root\\"><div class=\\"wrapper\\"><h1>Hello UmiJS SSR</h1><ul><li>Alice</li><li>Jack</li><li>Tony</li></ul><button>0</button></div></div><script src=\\"/umi.js\\"></script></body></html>"
 `;
 
-exports[`build ssr-dynamicImport 2`] = `
+exports[`build ssr-dynamicImport2 1`] = `
 "<!DOCTYPE html><html data-reactroot lang=\\"zh\\"><head><link rel=\\"stylesheet\\" href=\\"/\\"><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;
   window.g_initialData = {\\"list\\":[{\\"name\\":\\"Alice\\"},{\\"name\\":\\"Jack\\"},{\\"name\\":\\"Tony\\"}]};</script><script>window.routerBase = \\"/\\";</script><link rel=\\"preload\\" href=\\"/p__index.async.js\\" as=\\"script\\"></head><body><div id=\\"root\\"><div class=\\"wrapper\\"><h1>Hello UmiJS SSR</h1><ul><li>Alice</li><li>Jack</li><li>Tony</li></ul><button>0</button></div></div><script src=\\"/umi.js\\"></script></body></html>"
 `;

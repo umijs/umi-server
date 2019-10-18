@@ -42,7 +42,6 @@ describe('build', () => {
   });
 
   it('ssr', async () => {
-    console.log('qwefqwfewqf');
     const render = server({
       root: join(fixtures, 'ssr', 'dist'),
       publicPath: '/',
@@ -106,8 +105,11 @@ describe('build', () => {
       css: [],
       js: ['umi.js', 'p__index.async.js'],
     });
+  });
 
-    const renderPostProcessHtml = server({
+
+  it('ssr-dynamicImport2', async () => {
+    const render = server({
       root: join(fixtures, 'ssr-dynamicImport', 'dist'),
       publicPath: '/',
       postProcessHtml: (html, { load }) => {
@@ -116,11 +118,12 @@ describe('build', () => {
         return $.html();
       },
     });
-    const { ssrHtml: ssrHtmlPostProcessHtml } = await renderPostProcessHtml({
+    const { ssrHtml: ssrHtmlPostProcessHtml } = await render({
       req: {
         url: '/',
       },
     });
     expect(ssrHtmlPostProcessHtml).toMatchSnapshot();
   });
+
 });
