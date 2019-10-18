@@ -27,8 +27,9 @@ jobs:
       - run: npm install
       - run: npm run build
       - run:
-          command: npm run test -- --forceExit --detectOpenHandles --runInBand --maxWorkers=2
+          command: npm run test --forceExit
           no_output_timeout: 300m
+      - run: npm run coveralls
       - save_cache:
           key: node-modules-{{ checksum "package.json" }}
           paths:
