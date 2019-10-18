@@ -14,6 +14,9 @@ type IArgs = {
   load: (html: string) => ReturnType<typeof load>;
 } & Pick<IConfig, 'publicPath'>;
 export type IHandler<T = string> = (html: string, args: IArgs) => T;
+export interface IPolyfill {
+  host?: string;
+}
 export interface IConfig {
   /** prefix path for `filename` and `manifest`, if both in the same directory */
   root: string;
@@ -24,7 +27,7 @@ export interface IConfig {
   /** umi ssr server file, default: `${root}/umi.server.js` */
   filename?: string;
   /** default false */
-  polyfill?: boolean;
+  polyfill?: boolean | IPolyfill;
   /** use renderToStaticMarkup  */
   staticMarkup?: boolean;
   /** handler function for user to modify render html */
@@ -54,7 +57,10 @@ const server: IServer = config => {
     postProcessHtml = html => html,
     publicPath = '/',
   } = config;
-  const nodePolyfill = nodePolyfillDecorator(!!polyfill, 'http://localhost');
+  const polyfillHost = typeof polyfill === 'object' && polyfill.host
+    ? polyfill.host
+    : 'http://localhost';
+  const nodePolyfill = nodePolyfillDecorator(!!polyfill, polyfillHost);
   const serverRender = require(filename);
   const manifestFile = require(manifest);
   const { ReactDOMServer } = serverRender;
@@ -67,7 +73,7 @@ const server: IServer = config => {
     } = ctx;
     // polyfill pathname
     nodePolyfill(url);
-    const { htmlElement, matchPath } = await serverRender.default(ctx);
+    const { htmlElement, matchPath, g_initialData } = await serverRender.default(ctx);
     const renderString = ReactDOMServer[staticMarkup ? 'renderToStaticMarkup' : 'renderToString'](
       htmlElement,
     );
@@ -95,6 +101,7 @@ const server: IServer = config => {
       ssrHtml,
       matchPath,
       chunkMap,
+      g_initialData,
     };
   };
 };
