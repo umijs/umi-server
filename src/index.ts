@@ -38,7 +38,6 @@ export interface IConfig {
   /** TODO: serverless */
   serverless?: boolean;
 }
-type renderOpts = Pick<IConfig, 'polyfill'>
 export interface IContext {
   req: {
     url: string;
@@ -49,7 +48,7 @@ export interface IResult {
   matchPath: string;
   chunkMap: ICunkMap;
 }
-type IServer = (config: IConfig) => (ctx: IContext, renderOpts?: renderOpts) => Promise<IResult>;
+type IServer = (config: IConfig) => (ctx: IContext) => Promise<IResult>;
 
 const server: IServer = config => {
   const {

@@ -67,16 +67,18 @@ The type definition:
 
 ```js
 interface IConfig {
-  /** umi ssr server file, default: `${root}/umi.server.js` */
-  filename?: string;
-  /** ssr manifest, default: `${root}/ssr-client-mainifest.json` */
-  manifest?: string;
   /** prefix path for `filename` and `manifest`, if both in the same directory */
   root: string;
   /** static assets publicPath */
   publicPath: string;
+  /** host for dev server, default is empty */
+  host?: string;
+  /** ssr manifest, default: `${root}/ssr-client-mainifest.json` */
+  manifest?: string;
+  /** umi ssr server file, default: `${root}/umi.server.js` */
+  filename?: string;
   /** default false */
-  polyfill?: boolean;
+  polyfill?: boolean | IPolyfill;
   /** use renderToStaticMarkup  */
   staticMarkup?: boolean;
   /** handler function for user to modify render html */
