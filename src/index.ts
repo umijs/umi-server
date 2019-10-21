@@ -38,6 +38,7 @@ export interface IConfig {
   /** TODO: serverless */
   serverless?: boolean;
 }
+type renderOpts = Pick<IConfig, 'polyfill'>
 export interface IContext {
   req: {
     url: string;
@@ -48,7 +49,7 @@ export interface IResult {
   matchPath: string;
   chunkMap: ICunkMap;
 }
-type IServer = (config: IConfig) => (ctx: IContext) => Promise<IResult>;
+type IServer = (config: IConfig) => (ctx: IContext, renderOpts?: renderOpts) => Promise<IResult>;
 
 const server: IServer = config => {
   const {
@@ -71,12 +72,15 @@ const server: IServer = config => {
 
   _log('manifestFile', _log);
 
-  return async (ctx) => {
+  return async (ctx, renderOpts = {}) => {
     const {
       req: { url },
     } = ctx;
     // polyfill pathname
-    nodePolyfill(url);
+    nodePolyfill(typeof renderOpts.polyfill === 'object' && renderOpts.polyfill.host
+      ? `${renderOpts.polyfill.host}${url}`
+      : url
+    );
     const { htmlElement, matchPath, g_initialData } = await serverRender.default(ctx);
     const renderString = ReactDOMServer[staticMarkup ? 'renderToStaticMarkup' : 'renderToString'](
       htmlElement,
