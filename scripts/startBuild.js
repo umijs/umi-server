@@ -2,6 +2,7 @@
 const { join } = require('path');
 const { readdirSync } = require('fs');
 const { fork } = require('child_process');
+const { winPath } = require('umi-utils');
 
 async function build({ cwd }) {
   return new Promise((resolve, reject) => {
@@ -11,7 +12,7 @@ async function build({ cwd }) {
       COVERAGE: 1,
       UMI_UI: 'none',
     };
-    const child = fork(join(process.cwd(), 'node_modules', '.bin', 'umi'), ['build'], {
+    const child = fork(join(winPath(process.cwd()), 'node_modules', '.bin', 'umi'), ['build'], {
       cwd,
       env,
     });
