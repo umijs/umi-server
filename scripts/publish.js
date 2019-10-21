@@ -47,11 +47,15 @@ cp.on('close', code => {
   publishToNpm();
 });
 
+const repoMapper = {
+  '@umijs/plugin-prerender': 'umi-plugin-prerender',
+}
+
 function publishToNpm() {
   console.log(`repos to publish: ${updatedRepos.join(', ')}`);
   updatedRepos.forEach(repo => {
     shell.cd(join(cwd, 'packages', repo));
-    const { version } = require(join(cwd, 'packages', repo, 'package.json'));
+    const { version } = require(join(cwd, 'packages', repoMapper[repo] || repo, 'package.json'));
     if (version.includes('-rc.') || version.includes('-beta.') || version.includes('-alpha.')) {
       console.log(`[${repo}] npm publish --tag next`);
       shell.exec(`npm publish --tag next`);
