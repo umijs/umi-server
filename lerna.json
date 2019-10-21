@@ -11,6 +11,9 @@
     "cacheDir": ".changelog"
   },
   "packages": ["packages/*"],
+  "local": {
+    "@umijs/plugin-prerender": "packages/umi-plugin-prerender"
+  },
   "command": {
     "version": {
       "exact": true
