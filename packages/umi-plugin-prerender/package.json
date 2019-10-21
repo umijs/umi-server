@@ -1,0 +1,39 @@
+{
+  "name": "@umijs/plugin-prerender",
+  "version": "1.4.2",
+  "description": "A plugin for preRender",
+  "authors": {
+    "name": "ycjcl868",
+    "email": "45808948@qq.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/umijs/umi-server",
+    "directory": "packages/umi-plugin-prerender"
+  },
+  "peerDependencies": {
+    "umi": "2.x"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "mkdirp": "^0.5.1",
+    "react-ssr-checksum": "^0.0.0-alpha.1",
+    "ssr-polyfill": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.12",
+    "@types/deepmerge": "^2.2.0",
+    "@types/mkdirp": "^0.5.2",
+    "react-document-title": "^2.0.3",
+    "react-helmet": "^5.2.1"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

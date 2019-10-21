@@ -1,0 +1,33 @@
+{
+  "name": "umi-server",
+  "description": "A runtime render tool for Umijs Server-Side Rendering.",
+  "version": "1.0.2",
+  "main": "index.js",
+  "module": "lib/index.js",
+  "typings": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "bin",
+    "lib"
+  ],
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "debug": "^4.1.1",
+    "ssr-polyfill": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.13",
+    "@types/debug": "^4.1.5",
+    "@types/jest": "^24.0.19"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/umijs/umi-server",
+    "directory": "packages/umi-server"
+  },
+  "authors": [
+    "ycjcl868 <chaolinjin@gmail.com> (https://github.com/ycjcl868)"
+  ],
+  "license": "MIT"
+}

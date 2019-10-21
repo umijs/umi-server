@@ -1,45 +1,27 @@
 {
-  "name": "umi-server",
-  "description": "A runtime render tool for Umijs Server-Side Rendering.",
-  "version": "1.0.2",
-  "main": "index.js",
-  "module": "lib/index.js",
-  "typings": "index.d.ts",
+  "private": true,
   "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "changelog": "lerna-changelog",
     "build": "father-build",
+    "clean": "lerna clean -y",
+    "publish": "./scripts/publish.js",
     "test": "node scripts/startBuild.js && umi-test --forceExit --coverage",
-    "prepublishOnly": "npm run build && np --no-cleanup --yolo --no-publish",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
-  "files": [
-    "index.js",
-    "index.d.ts",
-    "bin",
-    "lib"
-  ],
-  "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
-    "debug": "^4.1.1",
-    "ssr-polyfill": "^1.0.0"
-  },
   "devDependencies": {
-    "@types/cheerio": "^0.22.13",
-    "@types/debug": "^4.1.5",
-    "@types/jest": "^24.0.19",
+    "lerna": "^3.6.0",
+    "lerna-changelog": "^0.8.2",
     "coveralls": "^3.0.7",
     "father-build": "^1.13.1",
-    "np": "^5.0.1",
     "umi": "^2.10.6",
+    "shelljs": "0.8.3",
     "umi-plugin-react": "^1.12.7",
     "umi-test": "^1.8.1",
+    "@types/jest": "^24.0.5",
+    "glob": "^7.1.4",
+    "fs-extra": "^8.1.0",
+    "umi-types": "^0.3.15",
     "umi-utils": "^1.7.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "http://github.com/umijs/umi-server"
-  },
-  "authors": [
-    "ycjcl868 <chaolinjin@gmail.com> (https://github.com/ycjcl868)"
-  ],
-  "license": "MIT"
+  }
 }

@@ -1,13 +1,11 @@
 import { join } from 'path';
-import server from '../../../src';
-import { winPath } from 'umi-utils';
+import server from '../../../packages/umi-server/src';
 const fixtures = join(process.cwd(), 'test', 'fixtures');
 
 describe('ssr-styles', () => {
   it('ssr-styles', async () => {
     const render = server({
       root: join(fixtures, 'ssr-styles', 'dist'),
-      publicPath: '/',
     });
 
     const { ssrHtml: indexHtml } = await render({

@@ -2,7 +2,6 @@
 const { join } = require('path');
 const { readdirSync } = require('fs');
 const { fork } = require('child_process');
-const { winPath } = require('umi-utils');
 
 async function build({ cwd }) {
   return new Promise((resolve, reject) => {

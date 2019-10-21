@@ -16,6 +16,7 @@ jobs:
       with:
         node-version: ${{ matrix.node_version }}
     - run: yarn install
+    - run: yarn bootstrap
     - run: yarn build
     - run: yarn test -- --forceExit
       env:

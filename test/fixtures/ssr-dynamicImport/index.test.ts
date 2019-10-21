@@ -1,12 +1,11 @@
 import { join } from 'path';
-import server from '../../../src';
+import server from '../../../packages/umi-server/src';
 const fixtures = join(process.cwd(), 'test', 'fixtures');
 
 describe('ssr-dynamicImport', () => {
   it('ssr-dynamicImport', async () => {
     const render = server({
       root: join(fixtures, 'ssr-dynamicImport', 'dist'),
-      publicPath: '/',
     });
     const { ssrHtml, chunkMap } = await render({
       req: {
@@ -23,7 +22,6 @@ describe('ssr-dynamicImport', () => {
   it('ssr-dynamicImport2', async () => {
     const render = server({
       root: join(fixtures, 'ssr-dynamicImport', 'dist'),
-      publicPath: '/',
       postProcessHtml: (html, { load }) => {
         const $ = load(html);
         $('html').attr('lang', 'zh');
@@ -51,7 +49,6 @@ describe('ssr-dynamicImport', () => {
     }
     const render = server({
       root: join(fixtures, 'ssr-dynamicImport', 'dist'),
-      publicPath: '/',
       postProcessHtml: [
         handler1,
         handler2,
@@ -73,7 +70,6 @@ describe('ssr-dynamicImport', () => {
     }
     const render = server({
       root: join(fixtures, 'ssr-dynamicImport', 'dist'),
-      publicPath: '/',
       postProcessHtml: handler,
     });
     const { ssrHtml: ssrHtmlPostProcessHtml } = await render({
