@@ -1,42 +1,10 @@
 import { join } from 'path';
-import { readdirSync } from 'fs';
-import { fork } from 'child_process';
-import { winPath } from 'umi-utils';
 import server from '..';
-
-async function build({ cwd }) {
-  return new Promise((resolve, reject) => {
-    const env = {
-      COMPRESS: 'none',
-      PROGRESS: 'none',
-      COVERAGE: 1,
-      UMI_UI: 'none',
-    };
-    const child = fork(join(process.cwd(), 'node_modules', '.bin', 'umi'), ['build'], {
-      cwd,
-      env,
-    });
-    child.on('exit', code => {
-      if (code === 1) {
-        reject(new Error('Build failed'));
-        process.exit(code);
-      } else {
-        resolve();
-      }
-    });
-  });
-}
+import { winPath } from 'umi-utils';
 
 const fixtures = join(winPath(__dirname), 'fixtures');
 
 describe('build', () => {
-  beforeAll(async () => {
-    const dirs = readdirSync(fixtures).filter(dir => dir.charAt(0) !== '.');
-
-    const buildPromise = dirs.map(dir => build({ cwd: join(fixtures, dir) }));
-    await Promise.all(buildPromise);
-  });
-
   afterAll(done => {
     done();
   });
@@ -126,4 +94,50 @@ describe('build', () => {
     expect(ssrHtmlPostProcessHtml).toMatchSnapshot();
   });
 
+
+  it('ssr-postProcessHtml array', async () => {
+    const handler1 = (html, { load }) => {
+      const $ = load(html);
+      $('head').prepend('<title>Hello</title>');
+      return $.html();
+    }
+    const handler2 = (html, { load }) => {
+      const $ = load(html);
+      $('head').prepend('<meta name="description" content="Hello Description">');
+      return $.html();
+    }
+    const render = server({
+      root: join(fixtures, 'ssr-dynamicImport', 'dist'),
+      publicPath: '/',
+      postProcessHtml: [
+        handler1,
+        handler2,
+      ],
+    });
+    const { ssrHtml: ssrHtmlPostProcessHtml } = await render({
+      req: {
+        url: '/',
+      },
+    });
+    expect(ssrHtmlPostProcessHtml).toMatchSnapshot();
+  });
+
+  it('ssr-postProcessHtml default value', async () => {
+    const handler: any = (html, { load }) => {
+      const $ = load(html);
+      $('head').prepend('<title>Hello</title>');
+      // should be (html) => html
+    }
+    const render = server({
+      root: join(fixtures, 'ssr-dynamicImport', 'dist'),
+      publicPath: '/',
+      postProcessHtml: handler,
+    });
+    const { ssrHtml: ssrHtmlPostProcessHtml } = await render({
+      req: {
+        url: '/',
+      },
+    });
+    expect(ssrHtmlPostProcessHtml).toMatchSnapshot();
+  });
 });

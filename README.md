@@ -80,7 +80,7 @@ interface IConfig {
   /** use renderToStaticMarkup  */
   staticMarkup?: boolean;
   /** handler function for user to modify render html */
-  postProcessHtml?: IHandler;
+  postProcessHtml?: IHandler | IHandler[];
   /** TODO: serverless */
   serverless?: boolean;
 }

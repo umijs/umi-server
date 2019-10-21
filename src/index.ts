@@ -10,6 +10,7 @@ interface ICunkMap {
   css: string[];
 }
 type IArgs = {
+  host?: string;
   chunkMap: ICunkMap;
   load: (html: string) => ReturnType<typeof load>;
 } & Pick<IConfig, 'publicPath'>;
@@ -22,6 +23,8 @@ export interface IConfig {
   root: string;
   /** static assets publicPath */
   publicPath: string;
+  /** host for dev server, default is empty */
+  host?: string;
   /** ssr manifest, default: `${root}/ssr-client-mainifest.json` */
   manifest?: string;
   /** umi ssr server file, default: `${root}/umi.server.js` */
@@ -31,10 +34,11 @@ export interface IConfig {
   /** use renderToStaticMarkup  */
   staticMarkup?: boolean;
   /** handler function for user to modify render html */
-  postProcessHtml?: IHandler;
+  postProcessHtml?: IHandler | IHandler[];
   /** TODO: serverless */
   serverless?: boolean;
 }
+type renderOpts = Pick<IConfig, 'polyfill'>
 export interface IContext {
   req: {
     url: string;
@@ -45,11 +49,12 @@ export interface IResult {
   matchPath: string;
   chunkMap: ICunkMap;
 }
-type IServer = (config: IConfig) => (ctx: IContext) => Promise<IResult>;
+type IServer = (config: IConfig) => (ctx: IContext, renderOpts?: renderOpts) => Promise<IResult>;
 
 const server: IServer = config => {
   const {
     root,
+    host = '',
     manifest = join(root, 'ssr-client-mainifest.json'),
     filename = join(root, 'umi.server'),
     staticMarkup = false,
@@ -67,7 +72,7 @@ const server: IServer = config => {
 
   _log('manifestFile', _log);
 
-  return async ctx => {
+  return async (ctx) => {
     const {
       req: { url },
     } = ctx;
@@ -82,13 +87,15 @@ const server: IServer = config => {
     const handlerOpts = {
       publicPath,
       chunkMap,
+      host,
       load: _getDocumentHandler,
     };
+    const processHtmlHandlers = Array.isArray(postProcessHtml) ? postProcessHtml : [postProcessHtml]
     const composeRender = compose(
       injectChunkMaps,
       patchDoctype,
       // user define handler
-      postProcessHtml,
+      ...processHtmlHandlers,
     );
     // compose all html handlers
     const ssrHtml = composeRender(renderString, handlerOpts);

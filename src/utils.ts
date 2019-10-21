@@ -17,19 +17,19 @@ declare var global: {
 };
 
 export const injectChunkMaps: IHandler = (html, args) => {
-  const { publicPath, chunkMap, load } = args;
+  const { host = '', publicPath, chunkMap, load } = args;
   _log('injectChunkMaps', chunkMap);
-  const { js, css } = chunkMap;
+  const { js = [], css = [] } = chunkMap || {};
   const $ = load(html);
   // filter umi.css and umi.*.css, htmlMap have includes
   const styles = css.filter(style => !/^umi\.\w+\.css$/g.test(style)) || [];
   styles.forEach(style => {
-    $('head').append(`<link rel="stylesheet" href="${publicPath}${style}" />`);
+    $('head').append(`<link rel="stylesheet" href="${host}${publicPath}${style}" />`);
   });
   // filter umi.js and umi.*.js
   const scripts = js.filter(script => !/^umi([.\w]*)?\.js$/g.test(script)) || [];
   scripts.forEach(script => {
-    $('head').append(`<link rel="preload" href="${publicPath}${script}" as="script"/>`);
+    $('head').append(`<link rel="preload" href="${host}${publicPath}${script}" as="script"/>`);
   });
 
   return $.html();
@@ -67,16 +67,13 @@ export const nodePolyfillDecorator: INodePolyfillDecorator = (
     });
 
     // if use pathname to mock location.pathname
-    return (url, context = {}) => {
-      const { pathname, query } = parse(url);
-      const urlObj = {
-        ...parse(origin),
-        pathname,
-        query,
-      };
+    return (nextOrigin) => {
+      const { protocol, host } = parse(origin);
+      const nextUrl = /^https?:\/\//.test(nextOrigin) ? nextOrigin : `${protocol}//${host}`;
+      const nextObj = parse(nextUrl);
       Object.defineProperty(window, 'location', {
         writable: true,
-        value: urlObj,
+        value: nextObj,
       });
     };
   }
