@@ -12,7 +12,8 @@ async function build({ cwd }) {
       COVERAGE: 1,
       UMI_UI: 'none',
     };
-    const child = fork(join(winPath(process.cwd()), 'node_modules', '.bin', 'umi'), ['build'], {
+    const BUILD_SCRIPT = join(__dirname, '..', 'node_modules', 'umi', 'bin', 'umi.js');
+    const child = fork(BUILD_SCRIPT, ['build'], {
       cwd,
       env,
     });
