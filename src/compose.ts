@@ -12,6 +12,6 @@ import { IHandler } from './index';
  * @param handler (html, args) => html
  */
 const compose: (...handler: IHandler[]) => IHandler = (...handler) =>
-  handler.reduce((acc, curr) => (html, args) => curr(acc(html, args), args));
+  handler.reduce((acc, curr) => (html, args) => curr(acc(html, args) || html, args) || html);
 
 export default compose;
