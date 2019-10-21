@@ -1,12 +1,9 @@
 module.exports = {
-  collectCoverageFrom: [
-    '!**/ui.umd.js',
-    '!**/fixtures/**',
-    '!**/__snapshots__/**',
-    '!**/ui/**',
-    '!**/examples/**',
-    '!**/locales/**',
-    '!**/typings/**',
-    '!**/types/**',
+  testPathIgnorePatterns: [
+    '/.git/',
+    '/node_modules/',
+    '/lib/',
+    '/fixtures',
+    '/__snapshots__',
   ],
 };
