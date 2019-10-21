@@ -1,9 +1,7 @@
 import cheerio from 'cheerio';
 import ssrPolyfill from 'ssr-polyfill';
 
-export const isDynamicRoute = (path: string): boolean => {
-  return path.split('/').some(snippet => snippet.startsWith(':'));
-}
+export const isDynamicRoute = (path: string): boolean => path.split('/').some(snippet => snippet.startsWith(':'))
 
 interface IChunkMap {
   js: string[];
@@ -22,7 +20,7 @@ export const injectChunkMaps = (html: string, chunkMap: IChunkMap, publicPath: s
   const { js, css } = chunkMap;
   const $ = _getDocumentHandler(html);
   // filter umi.css and umi.*.css, htmlMap have includes
-  const styles = css.filter(style => !/^umi\.\w+\.css$/g.test(style)) || [];
+  const styles = css.filter(style => !/^umi([.\w]*)?\.css$/g.test(style)) || [];
   styles.forEach(style => {
     $('head').append(`<link rel="stylesheet" href="${publicPath}${style}" />`)
   });
