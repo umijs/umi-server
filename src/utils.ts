@@ -17,19 +17,25 @@ declare var global: {
 };
 
 export const injectChunkMaps: IHandler = (html, args) => {
-  const { host = '', publicPath, chunkMap, load } = args;
+  const { chunkMap, load } = args;
   _log('injectChunkMaps', chunkMap);
   const { js = [], css = [] } = chunkMap || {};
   const $ = load(html);
+  const umiJS = js.find(script => /^umi\.(\w+\.)?js$/g.test(script));
+  // publicPath get from umi.js(gen from umi)
+  const umiSrc = $(`script[src*="${umiJS}"]`).attr('src')
+  const publicPath = umiSrc ? umiSrc.replace(umiJS, '') : '/';
   // filter umi.css and umi.*.css, htmlMap have includes
-  const styles = css.filter(style => !/^umi\.\w+\.css$/g.test(style)) || [];
+  const styles = css.filter(style => !/^umi\.(\w+\.)?css$/g.test(style)) || [];
+
   styles.forEach(style => {
-    $('head').append(`<link rel="stylesheet" href="${host}${publicPath}${style}" />`);
+    $('head').append(`<link rel="stylesheet" href="${publicPath}${style}" />`);
   });
   // filter umi.js and umi.*.js
   const scripts = js.filter(script => !/^umi([.\w]*)?\.js$/g.test(script)) || [];
+
   scripts.forEach(script => {
-    $('head').append(`<link rel="preload" href="${host}${publicPath}${script}" as="script"/>`);
+    $('head').append(`<link rel="preload" href="${publicPath}${script}" as="script"/>`);
   });
 
   return $.html();

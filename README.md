@@ -69,10 +69,6 @@ The type definition:
 interface IConfig {
   /** prefix path for `filename` and `manifest`, if both in the same directory */
   root: string;
-  /** static assets publicPath */
-  publicPath: string;
-  /** host for dev server, default is empty */
-  host?: string;
   /** ssr manifest, default: `${root}/ssr-client-mainifest.json` */
   manifest?: string;
   /** umi ssr server file, default: `${root}/umi.server.js` */

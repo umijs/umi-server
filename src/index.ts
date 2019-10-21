@@ -10,10 +10,9 @@ interface ICunkMap {
   css: string[];
 }
 type IArgs = {
-  host?: string;
   chunkMap: ICunkMap;
   load: (html: string) => ReturnType<typeof load>;
-} & Pick<IConfig, 'publicPath'>;
+};
 export type IHandler<T = string> = (html: string, args: IArgs) => T;
 export interface IPolyfill {
   host?: string;
@@ -21,10 +20,6 @@ export interface IPolyfill {
 export interface IConfig {
   /** prefix path for `filename` and `manifest`, if both in the same directory */
   root: string;
-  /** static assets publicPath */
-  publicPath: string;
-  /** host for dev server, default is empty */
-  host?: string;
   /** ssr manifest, default: `${root}/ssr-client-mainifest.json` */
   manifest?: string;
   /** umi ssr server file, default: `${root}/umi.server.js` */
@@ -54,13 +49,11 @@ type IServer = (config: IConfig) => (ctx: IContext, renderOpts?: renderOpts) => 
 const server: IServer = config => {
   const {
     root,
-    host = '',
     manifest = join(root, 'ssr-client-mainifest.json'),
     filename = join(root, 'umi.server'),
     staticMarkup = false,
     polyfill = false,
     postProcessHtml = html => html,
-    publicPath = '/',
   } = config;
   const polyfillHost = typeof polyfill === 'object' && polyfill.host
     ? polyfill.host
@@ -88,9 +81,7 @@ const server: IServer = config => {
     const chunkMap: ICunkMap = manifestFile[matchPath];
 
     const handlerOpts = {
-      publicPath,
       chunkMap,
-      host,
       load: _getDocumentHandler,
     };
     const processHtmlHandlers = Array.isArray(postProcessHtml) ? postProcessHtml : [postProcessHtml]
