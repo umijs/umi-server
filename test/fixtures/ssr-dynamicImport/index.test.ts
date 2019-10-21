@@ -1,63 +1,8 @@
 import { join } from 'path';
-import server from '..';
-import { winPath } from 'umi-utils';
+import server from '../../../src';
+const fixtures = join(process.cwd(), 'test', 'fixtures');
 
-const fixtures = join(winPath(__dirname), 'fixtures');
-
-describe('build', () => {
-  afterAll(done => {
-    done();
-  });
-
-  it('ssr', async () => {
-    const render = server({
-      root: join(fixtures, 'ssr', 'dist'),
-      publicPath: '/',
-    });
-    const { ssrHtml } = await render({
-      req: {
-        url: '/',
-      },
-    });
-    expect(ssrHtml).toMatch(/Hello UmiJS SSR/);
-  });
-
-  it('ssr commonjs require', async () => {
-    const serverCjs = require('..');
-    const render = serverCjs({
-      root: join(fixtures, 'ssr', 'dist'),
-      publicPath: '/',
-    });
-    const { ssrHtml } = await render({
-      req: {
-        url: '/',
-      },
-    });
-    expect(ssrHtml).toMatch(/Hello UmiJS SSR/);
-  });
-
-  it('ssr-styles', async () => {
-    const render = server({
-      root: join(fixtures, 'ssr-styles', 'dist'),
-      publicPath: '/',
-    });
-
-    const { ssrHtml: indexHtml } = await render({
-      req: {
-        url: '/',
-      },
-    });
-
-    expect(indexHtml).toMatchSnapshot();
-
-    const { ssrHtml: newsHtml } = await render({
-      req: {
-        url: '/news',
-      },
-    });
-    expect(newsHtml).toMatchSnapshot();
-  });
-
+describe('ssr-dynamicImport', () => {
   it('ssr-dynamicImport', async () => {
     const render = server({
       root: join(fixtures, 'ssr-dynamicImport', 'dist'),
@@ -74,7 +19,6 @@ describe('build', () => {
       js: ['umi.js', 'p__index.async.js'],
     });
   });
-
 
   it('ssr-dynamicImport2', async () => {
     const render = server({
@@ -93,7 +37,6 @@ describe('build', () => {
     });
     expect(ssrHtmlPostProcessHtml).toMatchSnapshot();
   });
-
 
   it('ssr-postProcessHtml array', async () => {
     const handler1 = (html, { load }) => {
@@ -140,4 +83,4 @@ describe('build', () => {
     });
     expect(ssrHtmlPostProcessHtml).toMatchSnapshot();
   });
-});
+})

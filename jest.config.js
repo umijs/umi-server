@@ -1,9 +1,6 @@
 module.exports = {
-  testPathIgnorePatterns: [
-    '/.git/',
-    '/node_modules/',
-    '/lib/',
-    '/fixtures',
-    '/__snapshots__',
-  ],
+  collectCoverageFrom: [
+    'src/**/*.{js,ts}',
+    'index.js'
+  ]
 };
