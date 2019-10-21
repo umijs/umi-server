@@ -54,7 +54,7 @@ const repoMapper = {
 function publishToNpm() {
   console.log(`repos to publish: ${updatedRepos.join(', ')}`);
   updatedRepos.forEach(repo => {
-    shell.cd(join(cwd, 'packages', repo));
+    shell.cd(join(cwd, 'packages', repoMapper[repo] || repo));
     const { version } = require(join(cwd, 'packages', repoMapper[repo] || repo, 'package.json'));
     if (version.includes('-rc.') || version.includes('-beta.') || version.includes('-alpha.')) {
       console.log(`[${repo}] npm publish --tag next`);
