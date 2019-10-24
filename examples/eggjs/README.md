@@ -10,7 +10,7 @@
 
 > Example for building full stack app with [umi](https://github.com/umijs/umi) and [egg](https://github.com/eggjs/egg) Server-Side Render
 
-### [Prerender demo](https://umijs.github.io/umi-example-ssr-with-egg/)
+### [demo](https://ssr-demo-eggjs-prerender.umijs.org)
 
 ## Prerequisites
 
