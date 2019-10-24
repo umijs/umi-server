@@ -5,7 +5,7 @@
     "changelog": "lerna-changelog",
     "build": "father-build",
     "clean": "lerna clean -y",
-    "publish": "node ./scripts/publish.js",
+    "publish": "npm run build && lerna publish",
     "test": "node scripts/startBuild.js && umi-test --forceExit --coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
