@@ -1,0 +1,30 @@
+{
+  "name": "umi-ssr-koajs",
+  "version": 2,
+  "env": {
+    "NOW_ZEIT_ENV": "true"
+  },
+  "builds": [
+    {
+      "src": "/dist/*",
+      "use": "@now/static"
+    },
+    {
+      "src": "server.js",
+      "use": "@now/node",
+      "config": {
+        "includeFiles": [
+          "dist/**/*"
+        ]
+      }
+    }
+  ],
+  "github": {
+    "silent": true
+  },
+  "routes": [
+    { "src": "/dist/(.*)", "dest": "dist/$1" },
+    { "src": "/(.*)", "dest": "/server.js" }
+  ],
+  "alias": ["ssr-demo-koajs.umijs.org"]
+}

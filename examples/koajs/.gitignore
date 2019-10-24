@@ -1,0 +1,9 @@
+/yarn.lock
+/dist/
+/node_modules/
+/src/pages/.umi/
+/src/pages/.umi-production/
+.DS_Store
+/public
+yarn.lock
+yarn-error.log

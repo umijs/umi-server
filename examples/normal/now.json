@@ -1,0 +1,25 @@
+{
+  "name": "umi-ssr-normal",
+  "version": 2,
+  "env": {
+    "NOW_ZEIT_ENV": "true"
+  },
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@now/node",
+      "config": {
+        "includeFiles": [
+          "dist/**/*"
+        ]
+      }
+    }
+  ],
+  "github": {
+    "silent": true
+  },
+  "routes": [
+    { "src": "/(.*)", "dest": "/server.js" }
+  ],
+  "alias": ["ssr-demo-normal.umijs.org"]
+}

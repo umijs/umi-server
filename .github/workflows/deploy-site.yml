@@ -1,0 +1,51 @@
+# Do not use now
+name: Deploy Doc Site
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy-normal:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: examples
+      env:
+        BUILD_ID: ${{ github.sha }}
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      working-directory: ./examples/normal
+      run: |
+        npm install
+        npm run build
+        now --token=$ZEIT_TOKEN --prod --scope umijs
+
+  deploy-koajs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: examples
+      env:
+        BUILD_ID: ${{ github.sha }}
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      working-directory: ./examples/koajs
+      run: |
+        npm install
+        npm run build
+        now --token=$ZEIT_TOKEN --prod --scope umijs
+  deploy-eggjs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: examples
+      env:
+        BUILD_ID: ${{ github.sha }}
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      working-directory: ./examples/eggjs
+      run: |
+        npm install
+        npm run prerender
+        now --token=$ZEIT_TOKEN --prod --scope umijs

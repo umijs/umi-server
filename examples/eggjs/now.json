@@ -1,0 +1,21 @@
+{
+  "name": "umi-ssr-egg-prerender",
+  "version": 2,
+  "env": {
+    "NOW_ZEIT_ENV": "true",
+    "UMI_ENV": "prerender"
+  },
+  "builds": [
+    {
+      "src": "/app/public/*",
+      "use": "@now/static"
+    }
+  ],
+  "github": {
+    "silent": true
+  },
+  "routes": [
+    { "src": "/(.*)", "dest": "app/public/$1" }
+  ],
+  "alias": ["ssr-demo-eggjs-prerender.umijs.org"]
+}
