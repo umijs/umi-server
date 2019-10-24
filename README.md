@@ -34,7 +34,6 @@ const render = server({
   // you can use root rather than filename and manifest
   // if both in the same directory
   // root: join(__dirname, 'dist');
-  publicPath: '/',
 })
 const headerMap = {
   '.js': 'text/javascript',
