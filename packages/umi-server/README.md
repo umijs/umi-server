@@ -13,27 +13,22 @@ npm install umi-server -S
 ```
 
 ```js
-// if using ES6 / TypeScript
-// import server from 'umi-server';
 const server = require('umi-server');
 const http = require('http');
-const { readFileSync } = require('fs');
+const { createReadStream } = require('fs');
 const { join, extname } = require('path');
 
+const root = join(__dirname, 'dist');
 const render = server({
-  filename: join(__dirname, 'dist', 'umi.server.js'),
-  manifest: join(__dirname, 'dist', 'ssr-client-mainifest.json'),
-  // you can use root rather than filename and manifest
-  // if both in the same directory
-  // root: join(__dirname, 'dist');
-  publicPath: '/',
+  root,
 })
 const headerMap = {
   '.js': 'text/javascript',
   '.css': 'text/css',
+  '.jpg': 'image/jpeg',
+  '.png': 'image/jpeg',
 }
 
-// your server
 http.createServer(async (req, res) => {
   const ext = extname(req.url);
   const header = {
@@ -41,7 +36,8 @@ http.createServer(async (req, res) => {
   }
   res.writeHead(200, header);
 
-  if (req.url === '/') {
+  if (!ext) {
+    // url render
     const ctx = {
       req,
       res,
@@ -50,16 +46,22 @@ http.createServer(async (req, res) => {
     res.write(ssrHtml);
     res.end()
   } else {
-    const content = await readFileSync(join(root, req.url) , 'utf-8');
-    res.end(content, 'utf-8');
+    // static file url
+    const path = join(root, req.url);
+    const stream = createReadStream(path);
+    stream.on('error', (error) => {
+      res.writeHead(404, 'Not Found');
+      res.end();
+    });
+    stream.pipe(res);
   }
 
-}).listen(8000)
+}).listen(3000)
 
-console.log('http://localhost:8000')
+console.log('http://localhost:3000');
 ```
 
-Visit [http://localhost:8000](http://localhost:8000).
+Visit [http://localhost:3000](http://localhost:3000).
 
 ## Usage
 
@@ -87,3 +89,9 @@ type IHandler = (html: string, args: IArgs) => string;
 ```
 
 more example usages in [test cases](https://github.com/umijs/umi-server/blob/master/test/index.test.ts).
+
+## TODO
+
+- [ ] Support renderToNodeStream
+- [ ] Better performance
+- [ ] Serverless

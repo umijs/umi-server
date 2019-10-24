@@ -1,31 +1,35 @@
 import { join } from 'path';
-import server from '../../../packages/umi-server/src';
-
-const fixtures = join(process.cwd(), 'test', 'fixtures');
+import server from '../../../src';
 
 describe('ssr', () => {
   it('ssr', async () => {
+    const hrstart = process.hrtime();
     const render = server({
-      root: join(fixtures, 'ssr', 'dist'),
+      root: join(__dirname, 'dist'),
     });
     const { ssrHtml } = await render({
       req: {
         url: '/',
       },
     });
+    const [s, ms] = process.hrtime(hrstart)
+    console.info('ssr Execution time (hr): %ds %dms', s, ms / 1000000);
     expect(ssrHtml).toMatch(/Hello UmiJS SSR/);
   });
 
   it('ssr commonjs require', async () => {
-    const serverCjs = require('../../../packages/umi-server');
+    const hrstart = process.hrtime();
+    const serverCjs = require('../../..');
     const render = serverCjs({
-      root: join(fixtures, 'ssr', 'dist'),
+      root: join(__dirname, 'dist'),
     });
     const { ssrHtml } = await render({
       req: {
         url: '/',
       },
     });
+    const [s, ms] = process.hrtime(hrstart)
+    console.info('ssr2 Execution time (hr): %ds %dms', s, ms / 1000000);
     expect(ssrHtml).toMatch(/Hello UmiJS SSR/);
   });
 })

@@ -1,17 +1,20 @@
 import { join } from 'path';
-import server from '../../../packages/umi-server/src';
-const fixtures = join(process.cwd(), 'test', 'fixtures');
+import server from '../../../src';
 
 describe('ssr-dynamicImport', () => {
   it('ssr-dynamicImport', async () => {
+    const hrstart = process.hrtime();
     const render = server({
-      root: join(fixtures, 'ssr-dynamicImport', 'dist'),
+      root: join(__dirname, 'dist'),
     });
     const { ssrHtml, chunkMap } = await render({
       req: {
         url: '/',
       },
     });
+
+    const [s, ms] = process.hrtime(hrstart)
+    console.info('ssr-dynamicImport / Execution time (hr): %ds %dms', s, ms / 1000000);
     expect(ssrHtml).toMatchSnapshot();
     expect(chunkMap).toEqual({
       css: [],
@@ -20,8 +23,10 @@ describe('ssr-dynamicImport', () => {
   });
 
   it('ssr-dynamicImport2', async () => {
+    const hrstart = process.hrtime();
+
     const render = server({
-      root: join(fixtures, 'ssr-dynamicImport', 'dist'),
+      root: join(__dirname, 'dist'),
       postProcessHtml: (html, { load }) => {
         const $ = load(html);
         $('html').attr('lang', 'zh');
@@ -33,10 +38,13 @@ describe('ssr-dynamicImport', () => {
         url: '/',
       },
     });
+    const [s, ms] = process.hrtime(hrstart)
+    console.info('ssr-dynamicImport2 / Execution time (hr): %ds %dms', s, ms / 1000000);
     expect(ssrHtmlPostProcessHtml).toMatchSnapshot();
   });
 
   it('ssr-postProcessHtml array', async () => {
+    const hrstart = process.hrtime();
     const handler1 = (html, { load }) => {
       const $ = load(html);
       $('head').prepend('<title>Hello</title>');
@@ -48,7 +56,7 @@ describe('ssr-dynamicImport', () => {
       return $.html();
     }
     const render = server({
-      root: join(fixtures, 'ssr-dynamicImport', 'dist'),
+      root: join(__dirname, 'dist'),
       postProcessHtml: [
         handler1,
         handler2,
@@ -59,17 +67,21 @@ describe('ssr-dynamicImport', () => {
         url: '/',
       },
     });
+    const [s, ms] = process.hrtime(hrstart)
+    console.info('ssr-postProcessHtml array / Execution time (hr): %ds %dms', s, ms / 1000000);
     expect(ssrHtmlPostProcessHtml).toMatchSnapshot();
   });
 
   it('ssr-postProcessHtml default value', async () => {
+    const hrstart = process.hrtime();
+
     const handler: any = (html, { load }) => {
       const $ = load(html);
       $('head').prepend('<title>Hello</title>');
       // should be (html) => html
     }
     const render = server({
-      root: join(fixtures, 'ssr-dynamicImport', 'dist'),
+      root: join(__dirname, 'dist'),
       postProcessHtml: handler,
     });
     const { ssrHtml: ssrHtmlPostProcessHtml } = await render({
@@ -77,6 +89,8 @@ describe('ssr-dynamicImport', () => {
         url: '/',
       },
     });
+    const [s, ms] = process.hrtime(hrstart)
+    console.info('ssr-postProcessHtml default value / Execution time (hr): %ds %dms', s, ms / 1000000);
     expect(ssrHtmlPostProcessHtml).toMatchSnapshot();
   });
 })

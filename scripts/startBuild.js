@@ -11,7 +11,7 @@ async function build({ cwd }) {
       COVERAGE: 1,
       UMI_UI: 'none',
     };
-    const BUILD_SCRIPT = join(__dirname, '..', 'node_modules', 'umi', 'bin', 'umi.js');
+    const BUILD_SCRIPT = join(process.cwd(), 'node_modules', 'umi', 'bin', 'umi.js');
     const child = fork(BUILD_SCRIPT, ['build'], {
       cwd,
       env,
@@ -28,7 +28,7 @@ async function build({ cwd }) {
 }
 
 (async () => {
-  const fixtures = join(process.cwd(), 'test', 'fixtures');
+  const fixtures = join(process.cwd(), 'packages', 'umi-server', 'test', 'fixtures');
   const dirs = readdirSync(fixtures).filter(dir => dir.charAt(0) !== '.');
 
   const buildPromise = dirs.map(dir => build({ cwd: join(fixtures, dir) }));
