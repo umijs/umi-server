@@ -11,6 +11,10 @@
 - [x] Eggjs Pre Render [preview](https://ssr-demo-eggjs-prerender.umijs.org)
 - [ ] Express example Serverless
 
+## Packages
+
+- [umi-server](https://github.com/umijs/umi-server/blob/master/packages/umi-server/README.md)
+- [@umijs/plugin-prerender](https://github.com/umijs/umi-server/blob/master/packages/umi-plugin-prerender/README.md)
 
 ## Quick Start
 
@@ -67,30 +71,3 @@ console.log('http://localhost:8000')
 ```
 
 Visit [http://localhost:8000](http://localhost:8000).
-
-## Usage
-
-The type definition:
-
-```js
-interface IConfig {
-  /** prefix path for `filename` and `manifest`, if both in the same directory */
-  root: string;
-  /** ssr manifest, default: `${root}/ssr-client-mainifest.json` */
-  manifest?: string;
-  /** umi ssr server file, default: `${root}/umi.server.js` */
-  filename?: string;
-  /** default false */
-  polyfill?: boolean | IPolyfill;
-  /** use renderToStaticMarkup  */
-  staticMarkup?: boolean;
-  /** handler function for user to modify render html */
-  postProcessHtml?: IHandler | IHandler[];
-  /** TODO: serverless */
-  serverless?: boolean;
-}
-
-type IHandler = (html: string, args: IArgs) => string;
-```
-
-more example usages in [test cases](https://github.com/umijs/umi-server/blob/master/test/index.test.ts).

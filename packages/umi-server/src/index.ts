@@ -3,7 +3,7 @@ import { join } from 'path';
 import { load } from 'cheerio';
 import compose from './compose';
 import _log from './debug';
-import { nodePolyfillDecorator, patchDoctype, injectChunkMaps, _getDocumentHandler } from './utils';
+import { nodePolyfillDecorator, injectChunkMaps, _getDocumentHandler } from './utils';
 
 interface ICunkMap {
   js: string[];
@@ -11,9 +11,9 @@ interface ICunkMap {
 }
 type IArgs = {
   chunkMap: ICunkMap;
-  load: (html: string) => ReturnType<typeof load>;
 };
-export type IHandler<T = string> = (html: string, args: IArgs) => T;
+type cheerio = ReturnType<typeof load>;
+export type IHandler = ($: cheerio, args: IArgs) => cheerio;
 export interface IPolyfill {
   host?: string;
 }
@@ -53,7 +53,7 @@ const server: IServer = config => {
     filename = join(root, 'umi.server'),
     staticMarkup = false,
     polyfill = false,
-    postProcessHtml = html => html,
+    postProcessHtml = $ => $,
   } = config;
   const polyfillHost = typeof polyfill === 'object' && polyfill.host
     ? polyfill.host
@@ -82,17 +82,16 @@ const server: IServer = config => {
 
     const handlerOpts = {
       chunkMap,
-      load: _getDocumentHandler,
     };
     const processHtmlHandlers = Array.isArray(postProcessHtml) ? postProcessHtml : [postProcessHtml]
     const composeRender = compose(
       injectChunkMaps,
-      patchDoctype,
       // user define handler
       ...processHtmlHandlers,
     );
+    const $ = _getDocumentHandler(renderString);
     // compose all html handlers
-    const ssrHtml = composeRender(renderString, handlerOpts);
+    const ssrHtml = composeRender($, handlerOpts).html();
 
     _log('ssrHtml', _log);
 

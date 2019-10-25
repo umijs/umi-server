@@ -1,5 +1,5 @@
 import { join } from 'path';
-import server from '../../../src';
+import server, { IHandler } from '../../../src';
 
 describe('ssr-dynamicImport', () => {
   it('ssr-dynamicImport', async () => {
@@ -27,10 +27,9 @@ describe('ssr-dynamicImport', () => {
 
     const render = server({
       root: join(__dirname, 'dist'),
-      postProcessHtml: (html, { load }) => {
-        const $ = load(html);
+      postProcessHtml: ($) => {
         $('html').attr('lang', 'zh');
-        return $.html();
+        return $;
       },
     });
     const { ssrHtml: ssrHtmlPostProcessHtml } = await render({
@@ -45,15 +44,13 @@ describe('ssr-dynamicImport', () => {
 
   it('ssr-postProcessHtml array', async () => {
     const hrstart = process.hrtime();
-    const handler1 = (html, { load }) => {
-      const $ = load(html);
+    const handler1 = ($) => {
       $('head').prepend('<title>Hello</title>');
-      return $.html();
+      return $;
     }
-    const handler2 = (html, { load }) => {
-      const $ = load(html);
+    const handler2 = ($) => {
       $('head').prepend('<meta name="description" content="Hello Description">');
-      return $.html();
+      return $;
     }
     const render = server({
       root: join(__dirname, 'dist'),
@@ -75,8 +72,7 @@ describe('ssr-dynamicImport', () => {
   it('ssr-postProcessHtml default value', async () => {
     const hrstart = process.hrtime();
 
-    const handler: any = (html, { load }) => {
-      const $ = load(html);
+    const handler: IHandler = ($) => {
       $('head').prepend('<title>Hello</title>');
       // should be (html) => html
     }

@@ -7,11 +7,11 @@ import { IHandler } from './index';
  *   handler2,
  *   hanlder3,
  *   ...
- * )(html, args);
+ * )($, args);
  *
- * @param handler (html, args) => html
+ * @param handler ($, args) => $
  */
 const compose: (...handler: IHandler[]) => IHandler = (...handler) =>
-  handler.reduce((acc, curr) => (html, args) => curr(acc(html, args) || html, args) || html);
+  handler.reduce((acc, curr) => ($, args) => curr(acc($, args) || $, args) || $);
 
 export default compose;

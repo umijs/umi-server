@@ -5,7 +5,8 @@ import _log from './debug';
 import { IHandler } from './index';
 
 export const _getDocumentHandler = (html: string, option: object = {}): ReturnType<typeof load> => {
-  return load(html, {
+  const docTypeHtml = /^<!DOCTYPE html>/.test(html) ? html : `<!DOCTYPE html>${html}`
+  return load(docTypeHtml, {
     decodeEntities: false,
     recognizeSelfClosing: true,
     ...option,
@@ -16,11 +17,10 @@ declare var global: {
   [key: string]: any;
 };
 
-export const injectChunkMaps: IHandler = (html, args) => {
-  const { chunkMap, load } = args;
+export const injectChunkMaps: IHandler = ($, args) => {
+  const { chunkMap } = args;
   _log('injectChunkMaps', chunkMap);
   const { js = [], css = [] } = chunkMap || {};
-  const $ = load(html);
   const umiJS = js.find(script => /^umi\.(\w+\.)?js$/g.test(script));
   // publicPath get from umi.js(gen from umi)
   const umiSrc = $(`script[src*="${umiJS}"]`).attr('src')
@@ -38,11 +38,7 @@ export const injectChunkMaps: IHandler = (html, args) => {
     $('head').append(`<link rel="preload" href="${publicPath}${script}" as="script"/>`);
   });
 
-  return $.html();
-};
-
-export const patchDoctype = (html: string) => {
-  return /^<!DOCTYPE html>/.test(html) ? html : `<!DOCTYPE html>${html}`;
+  return $;
 };
 
 export type INodePolyfillDecorator = (

@@ -85,7 +85,7 @@ interface IConfig {
   serverless?: boolean;
 }
 
-type IHandler = (html: string, args: IArgs) => string;
+type IHandler = ($: cheerio, args: IArgs) => cheerio;
 ```
 
 more example usages in [test cases](https://github.com/umijs/umi-server/blob/master/test/index.test.ts).
