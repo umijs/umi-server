@@ -77,6 +77,8 @@ interface IConfig {
   filename?: string;
   /** default false */
   polyfill?: boolean | IPolyfill;
+  /** use renderToNodeStream, better perf */
+  stream?: boolean;
   /** use renderToStaticMarkup  */
   staticMarkup?: boolean;
   /** handler function for user to modify render html */
@@ -88,10 +90,11 @@ interface IConfig {
 type IHandler = ($: cheerio, args: IArgs) => cheerio;
 ```
 
-more example usages in [test cases](https://github.com/umijs/umi-server/blob/master/test/index.test.ts).
+more example usages in [test cases](https://github.com/umijs/umi-server/blob/master/test).
 
 ## TODO
 
-- [ ] Support renderToNodeStream
+- [x] Support renderToNodeStream
+- [ ] Support `react-helmet` `react-document-title` render
 - [ ] Better performance
 - [ ] Serverless
