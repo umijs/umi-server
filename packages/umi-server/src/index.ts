@@ -41,6 +41,7 @@ export interface IContext {
   req: {
     url: string;
   };
+  res?: NodeJS.WritableStream
 }
 export interface IResult {
   ssrHtml?: string;
@@ -112,6 +113,9 @@ const server: IServer = config => {
       const renderStream: NodeJS.ReadableStream = ReactDOMServer[staticMarkup ? 'renderToStaticNodeStream' : 'renderToNodeStream'](
         htmlElement,
       );
+      if (ctx.res && ctx.res.write) {
+        ctx.res.write('<!DOCTYPE html>');
+      }
       result.ssrStream = renderStream;
     }
 
