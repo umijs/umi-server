@@ -6,7 +6,7 @@
     "build": "father build",
     "clean": "lerna clean -y",
     "publish": "npm run build && lerna publish",
-    "test": "node scripts/startBuild.js && father test --forceExit --coverage",
+    "test": "node scripts/startBuild.js && umi-test test --forceExit --coverage",
     "lint-staged": "lint-staged",
     "lint-staged:js": "eslint --fix --ext .js,.jsx,.ts,.tsx",
     "lint": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./packages"
@@ -25,6 +25,7 @@
     "prettier": "^1.18.2",
     "umi": "^2.10.6",
     "umi-plugin-react": "^1.12.7",
+    "umi-test": "^1.8.2",
     "umi-types": "^0.3.15",
     "umi-utils": "^1.7.1"
   },
