@@ -1,12 +1,10 @@
 import * as React from 'react';
 import router from 'umi/router';
-import { NavBar, Icon, Grid, Button, WhiteSpace} from 'antd-mobile';
+import { NavBar, Icon, Grid, Button, WhiteSpace } from 'antd-mobile';
 import styles from './index.module.less';
 
 const Discover: React.FC<{}> = () => {
-  const renderItem = data => {
-    return <div>{data.title}</div>;
-  };
+  const renderItem = data => <div>{data.title}</div>;
   const [num, setNum] = React.useState<number>(0);
   const items = [
     { title: '金币商城' },

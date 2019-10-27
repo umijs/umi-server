@@ -8,13 +8,11 @@ import { connect } from 'dva';
 import styles from './count.css';
 
 function Page(props) {
-  React.useEffect(() => {
-    return () => {
+  React.useEffect(() => () => {
       props.dispatch({
         type: 'count/reset',
       })
-    }
-  }, []);
+    }, []);
   return (
     <div className={styles.normal}>
       <h1>Page count</h1>
@@ -39,8 +37,6 @@ Page.getInitialProps = async ({ store, route, isServer }) => {
   });
 };
 
-export default connect(state => {
-  return {
+export default connect(state => ({
     count: state.count,
-  }
-})(Page);
+  }))(Page);

@@ -12,13 +12,11 @@ const News: React.SFC<{}> = (props) => {
     });
   };
 
-  React.useEffect(() => {
-    return () => {
+  React.useEffect(() => () => {
       dispatch({
         type: 'news/resetCount',
       })
-    }
-  }, []);
+    }, []);
   return (
     <div>
       <p>{id}-{name}</p>

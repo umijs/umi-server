@@ -4,17 +4,15 @@ import { load } from 'cheerio';
 import _log from './debug';
 import { IHandler } from './index';
 
-export const _getDocumentHandler = (html: string, option: object = {}): ReturnType<typeof load> => {
+type IGetDocumentHandler = (html: string, options?: option) => ReturnType<typeof load>;
+
+export const _getDocumentHandler: IGetDocumentHandler = (html, option = {}) => {
   const docTypeHtml = /^<!DOCTYPE html>/.test(html) ? html : `<!DOCTYPE html>${html}`
   return load(docTypeHtml, {
     decodeEntities: false,
     recognizeSelfClosing: true,
     ...option,
   });
-};
-
-declare var global: {
-  [key: string]: any;
 };
 
 export const injectChunkMaps: IHandler = ($, args) => {
@@ -69,7 +67,7 @@ export const nodePolyfillDecorator: INodePolyfillDecorator = (
     });
 
     // if use pathname to mock location.pathname
-    return (nextOrigin) => {
+    return nextOrigin => {
       const { protocol, host } = parse(origin);
       const nextUrl = /^https?:\/\//.test(nextOrigin) ? nextOrigin : `${protocol}//${host}`;
       const nextObj = parse(nextUrl);

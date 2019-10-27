@@ -8,13 +8,13 @@ interface IChunkMap {
   css: string[];
 }
 
-export const _getDocumentHandler = (html: string, option?: object): CheerioStatic => {
-  return cheerio.load(html, {
+type IGetDocumentHandler = (html: string, options?: option) => CheerioStatic;
+
+export const _getDocumentHandler: IGetDocumentHandler = (html, option) => cheerio.load(html, {
     decodeEntities: false,
     recognizeSelfClosing: true,
     ...option,
-  });
-}
+  })
 
 export const injectChunkMaps = (html: string, chunkMap: IChunkMap, publicPath: string): string => {
   const { js, css } = chunkMap;
@@ -41,16 +41,12 @@ export const modifyTitle = (html: string, title: string) => {
   return $.html();
 }
 
-export const removeSuffixHtml = (path: string): string => {
-  return path.replace('?', '')
+export const removeSuffixHtml = (path: string): string => path.replace('?', '')
     .replace('(', '')
     .replace(')', '')
     .replace(/\.(html|htm)/g, '')
-}
 
-const isHtmlPath = (path: string): boolean => {
-  return /\.(html|htm)/g.test(path);
-}
+const isHtmlPath = (path: string): boolean => /\.(html|htm)/g.test(path)
 
 export const findJSON = (baseDir, fileName) => {
   const { join } = require('path');
@@ -59,9 +55,10 @@ export const findJSON = (baseDir, fileName) => {
   if (existsSync(absFilePath)) {
     return absFilePath;
   }
+  return '';
 }
 
-export const fixHtmlSuffix = (route) => {
+export const fixHtmlSuffix = route => {
   if (route.path
     && route.path !== '/'
     && !isHtmlPath(route.path)
@@ -72,7 +69,7 @@ export const fixHtmlSuffix = (route) => {
   }
 }
 
-export const getStaticRoutePaths = (routes) => {
+export const getStaticRoutePaths = routes => {
   const _ = global.UMI_LODASH;
   return _.uniq(
     routes.reduce((memo, route) => {
@@ -94,7 +91,7 @@ export const getStaticRoutePaths = (routes) => {
 
 export const nodePolyfill = (url, context, disablePolyfill = false): any => {
   const mountGlobal = ['document', 'location', 'navigator', 'Image', 'self'];
-
+  let mockWin = {};
   if (disablePolyfill) {
     global.window = {};
     mountGlobal.forEach(mount => {
@@ -109,7 +106,7 @@ export const nodePolyfill = (url, context, disablePolyfill = false): any => {
     params = context();
   }
 
-  const mockWin = ssrPolyfill({
+  mockWin = ssrPolyfill({
     url,
     ...params,
   })
@@ -135,7 +132,7 @@ export const nodePolyfill = (url, context, disablePolyfill = false): any => {
   return mockWin;
 };
 
-export const patchWindow = (context) => {
+export const patchWindow = context => {
   let params = {};
   if (typeof context === 'object') {
     params = context;
@@ -152,6 +149,4 @@ export const patchWindow = (context) => {
   })
 }
 
-export const getSuffix = (filename: string): string => {
-  return `${filename || 'index'}.html`;
-}
+export const getSuffix = (filename: string): string => `${filename || 'index'}.html`

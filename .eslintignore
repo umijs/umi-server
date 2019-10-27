@@ -1,0 +1,7 @@
+**/test/
+**/dist/
+coverage/
+examples/
+.github/
+lib/
+*.d.ts

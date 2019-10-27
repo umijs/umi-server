@@ -3,10 +3,10 @@
  */
 import { useEffect, useState } from 'react';
 import { isEqual } from 'lodash';
-import styles from './index.less';
 
 import { List, Avatar, Tag, Icon } from 'antd';
 import fetch from 'umi-request';
+import styles from './index.less';
 
 function Page(props) {
   const [data, setData] = useState(props.data || []);
@@ -49,7 +49,7 @@ Page.getInitialProps = async ({ store, route, isServer, req }) => {
   // console.log('Home getInitialProps', store, route, isServer);
   const res = await fetch(`https://github-trending-api.now.sh/repositories${req.url || ''}`);
   return {
-    data: res
+    data: res,
   };
 };
 

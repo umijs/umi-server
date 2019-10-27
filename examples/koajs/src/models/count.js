@@ -13,7 +13,7 @@ export default {
     },
     reset(state) {
       return 0;
-    }
+    },
   },
   effects: {
     *init({ type, payload }, { put, call, select }) {

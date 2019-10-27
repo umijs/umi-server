@@ -1,8 +1,9 @@
-require("regenerator-runtime/runtime");
+require('regenerator-runtime/runtime');
 const server = require('umi-server');
 const Koa = require('koa');
 const { join, extname } = require('path');
 const serve = require('koa-static-router');
+
 const isDev = process.env.NODE_ENV === 'development';
 
 const root = join(__dirname, 'dist');
@@ -28,7 +29,7 @@ app.use(async (ctx, next) => {
     const { ssrHtml } = await render({
       req: {
         url: ctx.request.url,
-      }
+      },
     });
 
     ctx.body = ssrHtml;

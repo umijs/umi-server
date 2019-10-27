@@ -23,11 +23,9 @@ function Page(props) {
   );
 }
 
-Page.getInitialProps = async () => {
+Page.getInitialProps = async () =>
   // console.log('Users getInitialProps');
-  return Promise.resolve({
+   Promise.resolve({
     list: ['foo', 'bar'],
   });
-};
-
 export default Page;

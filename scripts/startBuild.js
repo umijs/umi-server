@@ -1,6 +1,5 @@
 
 const { join } = require('path');
-const { readdirSync } = require('fs');
 const glob = require('glob');
 const { fork } = require('child_process');
 

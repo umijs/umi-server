@@ -57,7 +57,7 @@ export default (api: IApi, opts: IOpts) => {
         `import CheckSum from 'react-ssr-checksum';
           export default (props) => (
             <CheckSum checksumCode={window.UMI_PRERENDER_SUM_CODE}>{props.children}</CheckSum>
-          )`
+          )`,
       )
       return modulePath;
     });
@@ -65,8 +65,8 @@ export default (api: IApi, opts: IOpts) => {
 
   // onBuildSuccess hook
   api.onBuildSuccessAsync(async () => {
-    const { routes, paths } = api;
-    const { absOutputPath } = paths;
+    const { routes } = api;
+    const { absOutputPath } = api.paths;
     const { manifestFileName = 'ssr-client-mainifest.json' } = config.ssr as any;
 
 
@@ -74,13 +74,13 @@ export default (api: IApi, opts: IOpts) => {
     const umiServerFile = findJS(absOutputPath, 'umi.server');
     const manifestFile = findJSON(absOutputPath, manifestFileName)
     if (!umiServerFile) {
-      throw new Error(`can't find umi.server.js file`);
+      throw new Error('can\'t find umi.server.js file');
     }
     // mock window
     nodePolyfill('http://localhost', runInMockContext, disablePolyfill);
     const serverRender = require(umiServerFile);
 
-    const routePaths: string[] = getStaticRoutePaths( routes)
+    const routePaths: string[] = getStaticRoutePaths(routes)
       .filter(path => !/(\?|\)|\()/g.test(path));
 
     // exclude render paths
@@ -125,7 +125,7 @@ export default (api: IApi, opts: IOpts) => {
           ssrHtml = (postProcessHtml($, url) || $).html();
           debug(`ssrHtml: ${ssrHtml}`);
         } catch (e) {
-          log.warn(`${url} postProcessHtml` ,e);
+          log.warn(`${url} postProcessHtml`, e);
         }
       }
 
@@ -138,7 +138,7 @@ export default (api: IApi, opts: IOpts) => {
           ssrHtml = injectChunkMaps(ssrHtml, chunk, config.publicPath || '/')
         }
       } catch (e) {
-        log.warn(`${url} reading get chunkMaps failed` ,e);
+        log.warn(`${url} reading get chunkMaps failed`, e);
       }
       const dir = url.substring(0, url.lastIndexOf('/'));
       const filename = getSuffix(url.substring(url.lastIndexOf('/') + 1, url.length));
@@ -149,7 +149,7 @@ export default (api: IApi, opts: IOpts) => {
         fs.writeFileSync(path.join(outputRoutePath, filename), `<!DOCTYPE html>${ssrHtml}`);
         log.complete(`${path.join(dir, filename)}`);
       } catch (e) {
-        log.fatal(`${url} render ${filename} failed` ,e);
+        log.fatal(`${url} render ${filename} failed`, e);
       }
     }
     log.success('umiJS prerender success!');
