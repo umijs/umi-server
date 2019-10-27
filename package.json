@@ -6,21 +6,20 @@
     "build": "father-build",
     "clean": "lerna clean -y",
     "publish": "npm run build && lerna publish",
-    "test": "node scripts/startBuild.js && umi-test --forceExit --coverage",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "test": "node scripts/startBuild.js && umi-test --forceExit --coverage"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.5",
+    "father-build": "^1.13.1",
+    "fs-extra": "^8.1.0",
+    "glob": "^7.1.5",
     "lerna": "^3.6.0",
     "lerna-changelog": "^0.8.2",
-    "coveralls": "^3.0.7",
-    "father-build": "^1.13.1",
-    "umi": "^2.10.6",
+    "lodash": "^4.17.15",
     "shelljs": "0.8.3",
+    "umi": "^2.10.6",
     "umi-plugin-react": "^1.12.7",
     "umi-test": "^1.8.1",
-    "@types/jest": "^24.0.5",
-    "glob": "^7.1.4",
-    "fs-extra": "^8.1.0",
     "umi-types": "^0.3.15",
     "umi-utils": "^1.7.1"
   }

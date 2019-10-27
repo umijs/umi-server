@@ -1,6 +1,7 @@
 
 const { join } = require('path');
 const { readdirSync } = require('fs');
+const glob = require('glob');
 const { fork } = require('child_process');
 
 async function build({ cwd }) {
@@ -28,9 +29,10 @@ async function build({ cwd }) {
 }
 
 (async () => {
-  const fixtures = join(process.cwd(), 'packages', 'umi-server', 'test', 'fixtures');
-  const dirs = readdirSync(fixtures).filter(dir => dir.charAt(0) !== '.');
-
-  const buildPromise = dirs.map(dir => build({ cwd: join(fixtures, dir) }));
+  const fixtures = glob.sync('packages/*/test/fixtures/*', {
+    cwd: process.cwd(),
+    dot: false,
+  });
+  const buildPromise = fixtures.map(dir => build({ cwd: dir }));
   await Promise.all(buildPromise);
 })()

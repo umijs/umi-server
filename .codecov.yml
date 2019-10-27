@@ -1,0 +1,8 @@
+codecov:
+  branch: master
+
+coverage:
+  status:
+    project:
+      default:
+        threshold: 0.1

@@ -30,7 +30,7 @@ jobs:
       - run:
           command: npm run test
           no_output_timeout: 300m
-      - run: npm run coveralls
+      - run: bash <(curl -s https://codecov.io/bash)
       - save_cache:
           key: node-modules-{{ checksum "package.json" }}
           paths:
