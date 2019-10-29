@@ -1,5 +1,3 @@
-
-
 const { Controller } = require('egg');
 const { join } = require('path');
 const server = require('umi-server');
@@ -14,14 +12,11 @@ class HomeController extends Controller {
     this.render = server({
       root: join(__dirname, '..', 'public'),
       polyfill: true,
-      postProcessHtml: [
-        this.handlerTitle,
-      ],
-   })
+      postProcessHtml: [this.handlerTitle],
+    });
   }
 
-  handlerTitle(html, { load }) {
-    const $ = load(html);
+  handlerTitle($) {
     try {
       const helmet = Helmet.renderStatic();
       const title = helmet.title.toString();
@@ -29,7 +24,7 @@ class HomeController extends Controller {
     } catch (e) {
       this.ctx.logger.error('postProcessHtml title', e);
     }
-    return $.html();
+    return $;
   }
 
   async index() {
@@ -43,13 +38,16 @@ class HomeController extends Controller {
     const renderOpts = {
       polyfill: {
         host: `${ctx.request.protocol}://${ctx.request.host}`,
-      }
-    }
-    const { ssrHtml } = await this.render({
-      req: {
-        url: ctx.request.url,
-      }
-    }, renderOpts);
+      },
+    };
+    const { ssrHtml } = await this.render(
+      {
+        req: {
+          url: ctx.request.url,
+        },
+      },
+      renderOpts,
+    );
 
     ctx.body = await ctx.renderString(ssrHtml);
   }
