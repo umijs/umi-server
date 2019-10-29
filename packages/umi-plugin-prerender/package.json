@@ -1,6 +1,6 @@
 {
   "name": "@umijs/plugin-prerender",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "description": "A plugin for Pre Render",
   "authors": {
     "name": "ycjcl868",
@@ -16,8 +16,8 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "umi-server": "1.1.0",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "umi-server": "1.1.1"
   },
   "devDependencies": {
     "@types/deepmerge": "^2.2.0",
