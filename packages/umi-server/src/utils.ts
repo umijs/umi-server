@@ -1,13 +1,13 @@
 import ssrPolyfill from 'ssr-polyfill';
+import isPlainObject from 'lodash/isPlainObject';
+import merge from 'lodash/merge';
 import { parse } from 'url';
 import { load } from 'cheerio';
 import _log from './debug';
-import { IHandler } from './index';
+import { IHandler, IRenderOpts } from './index';
 
-type IGetDocumentHandler = (html: string, options?: option) => ReturnType<typeof load>;
-
-export const _getDocumentHandler: IGetDocumentHandler = (html, option = {}) => {
-  const docTypeHtml = /^<!DOCTYPE html>/.test(html) ? html : `<!DOCTYPE html>${html}`
+export const _getDocumentHandler: typeof load = (html, option = {}) => {
+  const docTypeHtml = /^<!DOCTYPE html>/.test(html) ? html : `<!DOCTYPE html>${html}`;
   return load(docTypeHtml, {
     decodeEntities: false,
     recognizeSelfClosing: true,
@@ -21,7 +21,7 @@ export const injectChunkMaps: IHandler = ($, args) => {
   const { js = [], css = [] } = chunkMap || {};
   const umiJS = js.find(script => /^umi\.(\w+\.)?js$/g.test(script));
   // publicPath get from umi.js(gen from umi)
-  const umiSrc = $(`script[src*="${umiJS}"]`).attr('src')
+  const umiSrc = $(`script[src*="${umiJS}"]`).attr('src');
   const publicPath = umiSrc ? umiSrc.replace(umiJS, '') : '/';
   // filter umi.css and umi.*.css, htmlMap have includes
   const styles = css.filter(style => !/^umi\.(\w+\.)?css$/g.test(style)) || [];
@@ -42,13 +42,14 @@ export const injectChunkMaps: IHandler = ($, args) => {
 export type INodePolyfillDecorator = (
   enable: boolean,
   url?: string,
-) => (url?: string, context?: {}) => void;
+) => (renderOpts?: IRenderOpts, context?: { url: string }) => void;
 
 export const nodePolyfillDecorator: INodePolyfillDecorator = (
   enable = false,
   origin = 'http://localhost',
 ) => {
-  // init
+  const { pathname: defaultPathname } = parse(origin);
+  // @ts-ignore
   global.window = {};
   if (enable) {
     const mockWin = ssrPolyfill({
@@ -58,7 +59,7 @@ export const nodePolyfillDecorator: INodePolyfillDecorator = (
     mountGlobal.forEach(mount => {
       global[mount] = mockWin[mount];
     });
-
+    // @ts-ignore
     global.window = mockWin;
 
     // using window.document, window.location to mock document, location
@@ -67,14 +68,43 @@ export const nodePolyfillDecorator: INodePolyfillDecorator = (
     });
 
     // if use pathname to mock location.pathname
-    return nextOrigin => {
+    return (
+      renderOpts,
+      context = {
+        url: defaultPathname,
+      },
+    ) => {
+      const { url } = context;
+      const { polyfill, runInMockContext } = renderOpts;
+      let nextOrigin = url;
+      if (typeof polyfill === 'object' && polyfill.host) {
+        nextOrigin = `${polyfill.host}${url}`;
+      }
       const { protocol, host } = parse(origin);
-      const nextUrl = /^https?:\/\//.test(nextOrigin) ? nextOrigin : `${protocol}//${host}`;
+      const nextUrl = /^https?:\/\//.test(nextOrigin) ? nextOrigin : `${protocol}//${host}${url}`;
       const nextObj = parse(nextUrl);
-      Object.defineProperty(window, 'location', {
+      // @ts-ignore
+      Object.defineProperty(global.window, 'location', {
         writable: true,
-        value: nextObj,
+        value: {
+          // patch window.location.origin
+          origin: `${nextObj.protocol}//${nextObj.hostname}${
+            nextObj.port ? `:${nextObj.port}` : ''
+          }`,
+          ...nextObj,
+        },
       });
+      if (runInMockContext) {
+        let mockContext;
+        if (isPlainObject(runInMockContext)) {
+          mockContext = runInMockContext;
+        }
+        if (typeof runInMockContext === 'function') {
+          mockContext = runInMockContext();
+        }
+        // @ts-ignore
+        merge(global.window, mockContext || {});
+      }
     };
   }
   return () => {

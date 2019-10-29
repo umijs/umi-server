@@ -1,5 +1,6 @@
-import { IConfig, IContext, IResult } from './lib';
+// @ts-ignore
+import { IConfig, IContext, IResult, IServer } from './lib';
 
-declare const IServer: (config: IConfig) => (ctx: IContext) => Promise<IResult>;
+declare const IUmiServer: IServer;
 
-export = IServer;
+export = IUmiServer;

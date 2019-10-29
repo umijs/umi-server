@@ -1,7 +1,10 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "target": "esnext",
+    "moduleResolution": "node",
+    "jsx": "preserve",
     "declaration": true,
     "esModuleInterop": true
-  }
+  },
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.js", "lib", "fixtures", "examples", "*.d.ts"]
 }

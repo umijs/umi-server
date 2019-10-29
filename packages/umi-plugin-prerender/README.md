@@ -16,23 +16,16 @@ export default {
 
 ## Options
 
+extends [IConfig](https://github.com/umijs/umi-server/tree/master/packages/umi-server#options).
+
 ```typescript
-export interface IOpts {
+export interface IOpts extends IConfig {
   exclude?: string[];
   /** disable ssr BOM polyfill */
   disablePolyfill?: boolean;
-  // TODO just use seo, not displaym avoid flashing
-  visible?: boolean;
-  // you mock global, { g_lang: 'zh-CN' } => global.window.g_lang / global.g_lang
-  runInMockContext?: object | IContextFunc;
-  // use renderToStaticMarkup
-  staticMarkup?: boolean;
   // htmlSuffix
   htmlSuffix?: boolean;
-  // checkSum, default: false
-  checkSum?: boolean;
-  // modify render html function
-  postProcessHtml?: ($: CheerioStatic, path: string) => CheerioStatic;
+  runInMockContext?: object | (() => object);
 }
 ```
 

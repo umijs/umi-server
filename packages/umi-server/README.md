@@ -65,33 +65,105 @@ Visit [http://localhost:3000](http://localhost:3000).
 
 ## Usage
 
-The type definition:
+First, you need require/import `umi-server`.
 
 ```js
-interface IConfig {
-  /** prefix path for `filename` and `manifest`, if both in the same directory */
-  root: string;
-  /** ssr manifest, default: `${root}/ssr-client-mainifest.json` */
-  manifest?: string;
-  /** umi ssr server file, default: `${root}/umi.server.js` */
-  filename?: string;
-  /** default false */
-  polyfill?: boolean | IPolyfill;
-  /** use renderToStaticMarkup  */
-  staticMarkup?: boolean;
-  /** handler function for user to modify render html */
-  postProcessHtml?: IHandler | IHandler[];
-  /** TODO: serverless */
-  serverless?: boolean;
-}
-
-type IHandler = ($: cheerio, args: IArgs) => cheerio;
+const server = require('umi-server');
+// ES6 / TypeScript
+import server from 'umi-server';
 ```
 
-more example usages in [test cases](https://github.com/umijs/umi-server/blob/master/test/index.test.ts).
+### Enable SSR config
+set `ssr: true` in [Umi's configuration file](https://umijs.org/guide/app-structure.html#umirc-js-ts-and-config-config-js-ts).
+
+```diff
+// .umirc.js
+export default {
++  ssr: true
+}
+```
+
+then run `umi build` to generate the files by default:
+
+```bash
+.
+├── dist
+│   ├── index.html
+│   ├── ssr-client-mainifest.json
+│   ├── umi.js
+│   └── umi.server.js
+└── pages
+    └── index.js
+```
+
+### Initialize render
+
+You need to configure the resources needed for SSR.
+
+**server([options])**
+
+```js
+const server = require('umi-server');
+const render = server({
+  // you should make sure that `umi.server.js` and `ssr-client-mainifest.json` in the same location.
+  root: join(__dirname, 'dist'),
+});
+```
+
+#### options
+
+| Parameter | Description | Type | Optional Value | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| root | prefix path for `filename` and `manifest`, if both in the same directory | string | -- | undefined |
+| filename | umi ssr server-side file | string | -- | `${root}/umi.server.js` |
+| manifest | umi ssr manifest file | string | -- | `${root}/ssr-client-mainifest.json` |
+| polyfill | whether use polyfill for server-render | boolean | { host: string } | -- | false |
+| staticMarkup | use [renderToStaticMarkup](https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup) | boolean | -- | false |
+| postProcessHtml | handler function for user to modify render html accounding cheerio | ($, args) => $ | Array | -- | $ => $ |
+| serverless | TODO: Serverless mode |  | -- | -- |
+
+### render Component/Page
+
+server-side render using current `req.url` to match the current page or component.
+
+**IResult = render(ctx, renderOpts)**
+
+```js
+(req, res) => {
+  const ctx = {
+    req: {
+      url: req.url,
+    },
+    res,
+  }
+  const { ssrHtml } = await render(ctx);
+  res.write(ssrHtml);
+}
+```
+
+#### ctx
+
+the request and reponse render context, `req` and `res` will pass down into `getInitialProps`.
+
+| Parameter | Description | Type | Optional Value | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| req | http Request obj, must include `url` | Request | -- | undefined |
+| res | http Reponse obj |  | -- |  |
+
+#### renderOpts
+
+the render runtime opts like default polyfill for different pages.
+
+| Parameter | Description | Type | Optional Value | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| polyfill | same as the [options#polyfill](#options) |  | -- | false |
+| runInMockContext | runtime global object mock, for mock `window.location`, etc. |  | -- | false |
+
+more example usages in [test cases](https://github.com/umijs/umi-server/tree/master/packages/umi-server/test).
 
 ## TODO
 
+- [ ] Support `react-helmet` and `react-document-title` handler
 - [ ] Support renderToNodeStream
 - [ ] Better performance
 - [ ] Serverless

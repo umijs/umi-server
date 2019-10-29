@@ -8,6 +8,7 @@
     "publish": "npm run build && lerna publish",
     "test": "node scripts/startBuild.js && umi-test test --forceExit --coverage",
     "lint-staged": "lint-staged",
+    "tsc": "tsc --noEmit",
     "lint-staged:js": "eslint --fix --ext .js,.jsx,.ts,.tsx",
     "lint": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./packages"
   },
@@ -23,6 +24,7 @@
     "lint-staged": "^9.4.2",
     "lodash": "^4.17.15",
     "prettier": "^1.18.2",
+    "typescript": "^3.6.4",
     "umi": "^2.10.6",
     "umi-plugin-react": "^1.12.7",
     "umi-test": "^1.8.2",
@@ -31,7 +33,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint-staged"
+      "pre-commit": "npm run tsc && npm run lint-staged"
     }
   },
   "lint-staged": {
