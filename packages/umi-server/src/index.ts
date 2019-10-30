@@ -4,16 +4,19 @@ import { load } from 'cheerio';
 import compose from './compose';
 import _log from './debug';
 import { nodePolyfillDecorator, injectChunkMaps, _getDocumentHandler } from './utils';
+import { ReactInstance } from 'react';
 
 interface IDynamicChunkMap {
   js: string[];
   css: string[];
 }
+
 type IArgs = {
   chunkMap: IDynamicChunkMap;
 };
 type cheerio = ReturnType<typeof load>;
 export type IHandler = ($: cheerio, args: IArgs) => cheerio;
+
 export interface IPolyfill {
   host?: string;
 }
@@ -31,14 +34,24 @@ export interface IConfig {
   polyfill?: boolean | IPolyfill;
   /** use renderToStaticMarkup  */
   staticMarkup?: boolean;
+  /** replace the default ReactDOMServer.renderToString */
+  customRender?: (args: IRenderArgs) => Promise<string>
   /** handler function for user to modify render html accounding cheerio */
   postProcessHtml?: IHandler | IHandler[];
   /** TODO: serverless */
   serverless?: boolean;
 }
+
 export interface IRenderOpts extends Pick<IConfig, 'polyfill'> {
   /** mock global object like { g_lang: 'zh-CN' } => global.window.g_lang / global.g_lang  */
   runInMockContext?: object | IContextFunc;
+}
+
+export interface IRenderArgs {
+  htmlElement: any;
+  rootContainer: ReactInstance;
+  matchPath: ReactInstance;
+  g_initialData: any;
 }
 
 export interface IContext {
@@ -65,6 +78,7 @@ const server: IServer = config => {
     staticMarkup = false,
     polyfill = false,
     postProcessHtml = $ => $,
+    customRender,
   } = config;
   const polyfillHost =
     typeof polyfill === 'object' && polyfill.host ? polyfill.host : 'http://localhost';
@@ -83,10 +97,12 @@ const server: IServer = config => {
     nodePolyfill(renderOpts, {
       url,
     });
-    const { htmlElement, matchPath, g_initialData } = await serverRender.default(ctx);
-    const renderString = ReactDOMServer[staticMarkup ? 'renderToStaticMarkup' : 'renderToString'](
-      htmlElement,
-    );
+    const { htmlElement, rootContainer, matchPath, g_initialData } = await serverRender.default(ctx) as IRenderArgs;
+    const renderString = customRender ? await customRender({ 
+            htmlElement, rootContainer, matchPath, g_initialData
+    }) : ReactDOMServer[staticMarkup ? 'renderToStaticMarkup' : 'renderToString'](
+        htmlElement,
+      );
     const chunkMap: IDynamicChunkMap = manifestFile[matchPath];
 
     const handlerOpts = {
