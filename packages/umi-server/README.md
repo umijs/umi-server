@@ -120,6 +120,7 @@ const render = server({
 | polyfill | whether use polyfill for server-render | boolean | { host: string } | -- | false |
 | staticMarkup | use [renderToStaticMarkup](https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup) | boolean | -- | false |
 | postProcessHtml | handler function for user to modify render html accounding cheerio | ($, args) => $ | Array | -- | $ => $ |
+| customRender | custom Render function | (IResult) => Promise<string> |  | -- | ReactDOMServer.renderToString |
 | serverless | TODO: Serverless mode |  | -- | -- |
 
 ### render Component/Page
@@ -140,6 +141,10 @@ server-side render using current `req.url` to match the current page or componen
   res.write(ssrHtml);
 }
 ```
+
+### Custom Render
+
+umi-server supports custom render function by user. see [ssr-customRender/index.test.ts](http://github.com/umijs/umi-server/tree/master/packages/umi-server/test/fixtures/ssr-customRender/index.test.ts).
 
 #### ctx
 
