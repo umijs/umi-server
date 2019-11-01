@@ -1,7 +1,7 @@
 import * as React from 'react';
 import router from 'umi/router';
 import { Helmet } from 'react-helmet';
-import { formatMessage } from 'umi-plugin-locale';
+import { formatMessage } from 'umi-plugin-react/locale';
 import { connect } from 'dva';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { SearchBar, Grid, ListView } from 'antd-mobile';
@@ -39,7 +39,7 @@ class Home extends React.Component {
       // umi-history not patch server location, will fix
       location,
     });
-  }
+  };
 
   onSearch = value => {
     console.log('onSearch', value);
@@ -233,7 +233,7 @@ class Home extends React.Component {
               <div style={{ ...style, zIndex: 1, height: '1.2rem', overflow: 'hidden' }}>
                 <SearchBar
                   placeholder={formatMessage({
-                    id: 'hello'
+                    id: 'hello',
                   })}
                   className={styles.search}
                   onSubmit={this.onSearch}

@@ -33,7 +33,6 @@
     "react-helmet": "^5.2.1",
     "react-sticky": "^6.0.3",
     "ssr-polyfill": "^1.0.0",
-    "umi-plugin-locale": "^2.9.8",
     "umi-request": "1.2.4-beta.1",
     "umi-server": "^1.0.0",
     "umi-utils": "^1.5.4",
