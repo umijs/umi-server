@@ -10,11 +10,14 @@
     "lint-staged": "lint-staged",
     "tsc": "tsc --noEmit",
     "lint-staged:js": "eslint --fix --ext .js,.jsx,.ts,.tsx",
+    "benchmark": "node scripts/benchmark.js",
     "lint": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./packages"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.5",
+    "@types/benchmark": "^1.0.31",
+    "@types/jest": "^24.0.21",
     "@umijs/fabric": "^1.2.1",
+    "benchmark": "^2.1.4",
     "enzyme": "^3.10.0",
     "eslint": "^5.16.0",
     "father": "^2.24.0",

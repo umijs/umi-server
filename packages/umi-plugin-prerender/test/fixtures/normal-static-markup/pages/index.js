@@ -14,7 +14,7 @@ function Page(props) {
 }
 
 Page.getInitialProps = () => {
-  console.log('Home getInitialProps');
+  // console.log('Home getInitialProps');
   return {
     data: {
       ssr: 'http://127.0.0.1:7001',
