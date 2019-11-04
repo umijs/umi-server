@@ -6,6 +6,28 @@ import { load } from 'cheerio';
 import _log from './debug';
 import { IHandler, IRenderOpts } from './index';
 
+type IFilterRootContainer = (ssrHtml: string, functor?: (html: string) => string) => string;
+/**
+ * root html fragment string not parse by cheerio for better perfs
+ * 1. <body>(.*)</body> => <body><!-- UMI_SERVER_TMP_PLACEHOLDER --></body>
+ * 2. handlers => postProcessHtml html fragment
+ * 3. <body><!-- UMI_SERVER_TMP_PLACEHOLDER -->...handler created</body>
+ *    => <body>(.*)...handler created</body>
+ *
+ * @param html React server render origin html string
+ * @param functor layout html functor for hanlders using cheerio
+ */
+export const filterRootContainer: IFilterRootContainer = (html, functor) => {
+  const bodyExp = /<body>(.*?)<\/body>/is;
+  const placeholderExp = /<!-- UMI_SERVER_TMP_PLACEHOLDER -->/gs;
+  const placeholder = '<body><!-- UMI_SERVER_TMP_PLACEHOLDER --></body>';
+  const layout = html.replace(bodyExp, placeholder);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [body, root] = html.match(bodyExp);
+  const layoutHtml = functor(layout);
+  return layoutHtml.replace(placeholderExp, root);
+};
+
 export const _getDocumentHandler: typeof load = (html, option = {}) => {
   const docTypeHtml = /^<!DOCTYPE html>/.test(html) ? html : `<!DOCTYPE html>${html}`;
   return load(docTypeHtml, {

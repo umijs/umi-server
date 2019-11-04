@@ -12,9 +12,9 @@ describe('ssr', () => {
         url: '/',
       },
     });
-    const [s, ms] = process.hrtime(hrstart)
+    const [s, ms] = process.hrtime(hrstart);
     console.info('ssr Execution time (hr): %ds %dms', s, ms / 1000000);
-    expect(ssrHtml).toMatch(/Hello UmiJS SSR/);
+    expect(ssrHtml).toMatchSnapshot();
   });
 
   it('ssr commonjs require', async () => {
@@ -28,8 +28,8 @@ describe('ssr', () => {
         url: '/',
       },
     });
-    const [s, ms] = process.hrtime(hrstart)
+    const [s, ms] = process.hrtime(hrstart);
     console.info('ssr2 Execution time (hr): %ds %dms', s, ms / 1000000);
-    expect(ssrHtml).toMatch(/Hello UmiJS SSR/);
+    expect(ssrHtml).toMatchSnapshot();
   });
-})
+});

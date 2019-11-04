@@ -4,7 +4,12 @@ import { load } from 'cheerio';
 import React from 'react';
 import compose from './compose';
 import _log from './debug';
-import { nodePolyfillDecorator, injectChunkMaps, _getDocumentHandler } from './utils';
+import {
+  nodePolyfillDecorator,
+  injectChunkMaps,
+  _getDocumentHandler,
+  filterRootContainer,
+} from './utils';
 
 interface IDynamicChunkMap {
   js: string[];
@@ -103,7 +108,7 @@ const server: IServer = config => {
     const chunkMap: IDynamicChunkMap = manifestFile[matchPath];
     const reactRender = ReactDOMServer[staticMarkup ? 'renderToStaticMarkup' : 'renderToString'];
 
-    const renderString =
+    const renderString: string =
       typeof customRender === 'function'
         ? await customRender({
             ...serverRenderRes,
@@ -122,9 +127,11 @@ const server: IServer = config => {
       // user define handler
       ...processHtmlHandlers,
     );
-    const $ = _getDocumentHandler(renderString);
-    // compose all html handlers
-    const ssrHtml = composeRender($, handlerOpts).html();
+    const ssrHtml = filterRootContainer(renderString, layoutHtml => {
+      const $ = _getDocumentHandler(layoutHtml);
+      // compose all layoutHtml handlers
+      return composeRender($, handlerOpts).html();
+    });
 
     // enable render rootContainer
     // const ssrHtmlElement =
