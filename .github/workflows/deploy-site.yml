@@ -6,19 +6,50 @@ on:
       - master
 
 jobs:
+  deploy-ant-motion:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: build-link
+      run: |
+        yarn install
+        yarn bootstrap
+        yarn build
+        cd packages/umi-server && yarn link && cd ..
+        cd umi-plugin-prerender && yarn link && cd ../..
+    - name: examples
+      env:
+        BUILD_ID: ${{ github.sha }}
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      working-directory: ./examples/ant-motion
+      run: |
+        yarn
+        yarn link umi-server @umijs/plugin-prerender
+        yarn build
+        now --token=$ZEIT_TOKEN --prod --scope umijs
+
   deploy-normal:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@master
+    - name: build-link
+      run: |
+        yarn install
+        yarn bootstrap
+        yarn build
+        cd packages/umi-server && yarn link && cd ..
+        cd umi-plugin-prerender && yarn link && cd ../..
     - name: examples
       env:
         BUILD_ID: ${{ github.sha }}
         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
       working-directory: ./examples/normal
       run: |
-        npm install
-        npm run build
+        yarn
+        yarn link umi-server @umijs/plugin-prerender
+        yarn build
         now --token=$ZEIT_TOKEN --prod --scope umijs
 
   deploy-koajs:
@@ -26,26 +57,42 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
+    - name: build-link
+      run: |
+        yarn install
+        yarn bootstrap
+        yarn build
+        cd packages/umi-server && yarn link && cd ..
+        cd umi-plugin-prerender && yarn link && cd ../..
     - name: examples
       env:
         BUILD_ID: ${{ github.sha }}
         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
       working-directory: ./examples/koajs
       run: |
-        npm install
-        npm run build
+        yarn
+        yarn link umi-server @umijs/plugin-prerender
+        yarn build
         now --token=$ZEIT_TOKEN --prod --scope umijs
   deploy-eggjs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@master
+    - name: build-link
+      run: |
+        yarn install
+        yarn bootstrap
+        yarn build
+        cd packages/umi-server && yarn link && cd ..
+        cd umi-plugin-prerender && yarn link && cd ../..
     - name: examples
       env:
         BUILD_ID: ${{ github.sha }}
         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
       working-directory: ./examples/eggjs
       run: |
-        npm install
-        npm run prerender
+        yarn
+        yarn link umi-server @umijs/plugin-prerender
+        yarn prerender
         now --token=$ZEIT_TOKEN --prod --scope umijs

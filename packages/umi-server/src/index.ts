@@ -16,9 +16,13 @@ interface IDynamicChunkMap {
   css: string[];
 }
 
-type IArgs = {
+export interface IFilterContext {
+  publicPath: string;
+}
+
+export interface IArgs extends Partial<IFilterContext> {
   chunkMap: IDynamicChunkMap;
-};
+}
 type cheerio = ReturnType<typeof load>;
 export type IHandler = ($: cheerio, args: IArgs) => cheerio;
 
@@ -116,9 +120,6 @@ const server: IServer = config => {
           })
         : reactRender(htmlElement);
 
-    const handlerOpts = {
-      chunkMap,
-    };
     const processHtmlHandlers = Array.isArray(postProcessHtml)
       ? postProcessHtml
       : [postProcessHtml];
@@ -127,8 +128,12 @@ const server: IServer = config => {
       // user define handler
       ...processHtmlHandlers,
     );
-    const ssrHtml = filterRootContainer(renderString, layoutHtml => {
+    const ssrHtml = filterRootContainer(renderString, (layoutHtml, context) => {
       const $ = _getDocumentHandler(layoutHtml);
+      const handlerOpts = {
+        ...context,
+        chunkMap,
+      };
       // compose all layoutHtml handlers
       return composeRender($, handlerOpts).html();
     });

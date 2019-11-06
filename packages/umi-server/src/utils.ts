@@ -1,12 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import ssrPolyfill from 'ssr-polyfill';
 import isPlainObject from 'lodash/isPlainObject';
 import merge from 'lodash/merge';
 import { parse } from 'url';
 import { load } from 'cheerio';
 import _log from './debug';
-import { IHandler, IRenderOpts } from './index';
+import { IHandler, IRenderOpts, IFilterContext } from './index';
 
-type IFilterRootContainer = (ssrHtml: string, functor?: (html: string) => string) => string;
+type IFilterRootContainer = (
+  ssrHtml: string,
+  functor?: (html: string, context?: IFilterContext) => string,
+) => string;
 /**
  * root html fragment string not parse by cheerio for better perfs
  * 1. <body>(.*)</body> => <body><!-- UMI_SERVER_TMP_PLACEHOLDER --></body>
@@ -22,9 +26,13 @@ export const filterRootContainer: IFilterRootContainer = (html, functor) => {
   const placeholderExp = /<!-- UMI_SERVER_TMP_PLACEHOLDER -->/gs;
   const placeholder = '<body><!-- UMI_SERVER_TMP_PLACEHOLDER --></body>';
   const layout = html.replace(bodyExp, placeholder);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [body, root] = html.match(bodyExp);
-  const layoutHtml = functor(layout);
+  const root = html.match(bodyExp) ? html.match(bodyExp)[1] : '';
+  const matchPublicPath = root.match(/<script.*?src="(.*?)umi\.(\w+\.)?js"/i);
+  const publicPath = matchPublicPath ? matchPublicPath[1] : '/';
+  const context = {
+    publicPath,
+  };
+  const layoutHtml = functor(layout, context);
   return layoutHtml.replace(placeholderExp, root);
 };
 
@@ -38,13 +46,8 @@ export const _getDocumentHandler: typeof load = (html, option = {}) => {
 };
 
 export const injectChunkMaps: IHandler = ($, args) => {
-  const { chunkMap } = args;
-  _log('injectChunkMaps', chunkMap);
+  const { chunkMap, publicPath = '/' } = args;
   const { js = [], css = [] } = chunkMap || {};
-  const umiJS = js.find(script => /^umi\.(\w+\.)?js$/g.test(script));
-  // publicPath get from umi.js(gen from umi)
-  const umiSrc = $(`script[src*="${umiJS}"]`).attr('src');
-  const publicPath = umiSrc ? umiSrc.replace(umiJS, '') : '/';
   // filter umi.css and umi.*.css, htmlMap have includes
   const styles = css.filter(style => !/^umi\.(\w+\.)?css$/g.test(style)) || [];
 

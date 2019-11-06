@@ -1,5 +1,6 @@
 export default {
   ssr: true,
+  publicPath: '/dist/',
   plugins: [
     [
       'umi-plugin-react',
@@ -7,7 +8,7 @@ export default {
         dynamicImport: {
           webpackChunkName: true,
         },
-      }
-    ]
-  ]
-}
+      },
+    ],
+  ],
+};
