@@ -5,7 +5,7 @@
     "changelog": "lerna-changelog",
     "build": "father build",
     "clean": "lerna clean -y",
-    "publish": "npm run build && lerna publish",
+    "publish": "npm run changelog && npm run build && lerna publish",
     "test": "node scripts/startBuild.js && umi-test test --forceExit --coverage",
     "lint-staged": "lint-staged",
     "tsc": "tsc --noEmit",
