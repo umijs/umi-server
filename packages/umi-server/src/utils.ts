@@ -50,15 +50,17 @@ export const injectChunkMaps: IHandler = ($, args) => {
   const { js = [], css = [] } = chunkMap || {};
   // filter umi.css and umi.*.css, htmlMap have includes
   const styles = css.filter(style => !/^umi\.(\w+\.)?css$/g.test(style)) || [];
-
   styles.forEach(style => {
-    $('head').append(`<link rel="stylesheet" href="${publicPath}${style}" />`);
+    if (style) {
+      $('head').append(`<link rel="stylesheet" href="${publicPath}${style}" />`);
+    }
   });
   // filter umi.js and umi.*.js
   const scripts = js.filter(script => !/^umi([.\w]*)?\.js$/g.test(script)) || [];
-
   scripts.forEach(script => {
-    $('head').append(`<link rel="preload" href="${publicPath}${script}" as="script"/>`);
+    if (script) {
+      $('head').append(`<link rel="preload" href="${publicPath}${script}" as="script"/>`);
+    }
   });
 
   return $;

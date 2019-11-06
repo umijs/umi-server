@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+# on: push
 
 jobs:
   deploy-ant-motion:
@@ -26,8 +27,9 @@ jobs:
       run: |
         yarn
         yarn link umi-server @umijs/plugin-prerender
+        node --eval "console.log(require.resolve('umi-server'));"
         yarn build
-        now --token=$ZEIT_TOKEN --prod --scope umijs
+        now --token=$ZEIT_TOKEN --prod --force --scope umijs
 
   deploy-normal:
     runs-on: ubuntu-latest
@@ -49,8 +51,9 @@ jobs:
       run: |
         yarn
         yarn link umi-server @umijs/plugin-prerender
+        node --eval "console.log(require.resolve('umi-server'));"
         yarn build
-        now --token=$ZEIT_TOKEN --prod --scope umijs
+        now --token=$ZEIT_TOKEN --prod --force --scope umijs
 
   deploy-koajs:
     runs-on: ubuntu-latest
@@ -72,8 +75,9 @@ jobs:
       run: |
         yarn
         yarn link umi-server @umijs/plugin-prerender
+        node --eval "console.log(require.resolve('umi-server'));"
         yarn build
-        now --token=$ZEIT_TOKEN --prod --scope umijs
+        now --token=$ZEIT_TOKEN --prod --force --scope umijs
   deploy-eggjs:
     runs-on: ubuntu-latest
     steps:
@@ -94,5 +98,6 @@ jobs:
       run: |
         yarn
         yarn link umi-server @umijs/plugin-prerender
+        node --eval "console.log(require.resolve('umi-server'), require.resolve('@umijs/plugin-prerender'));"
         yarn prerender
-        now --token=$ZEIT_TOKEN --prod --scope umijs
+        now --token=$ZEIT_TOKEN --prod --force --scope umijs

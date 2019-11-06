@@ -5,7 +5,7 @@ const plugins = [
     'umi-plugin-react',
     {
       antd: true,
-      dva: true,
+      dva: false,
       scripts: [
         { src: 'https://www.googletagmanager.com/gtag/js?id=UA-81288209-1', async: 'async' },
         `
