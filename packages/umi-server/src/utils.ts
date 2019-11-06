@@ -27,7 +27,7 @@ export const filterRootContainer: IFilterRootContainer = (html, functor) => {
   const placeholder = '<body><!-- UMI_SERVER_TMP_PLACEHOLDER --></body>';
   const layout = html.replace(bodyExp, placeholder);
   const root = html.match(bodyExp) ? html.match(bodyExp)[1] : '';
-  const matchPublicPath = root.match(/<script.*?src="(.*?)umi\.(\w+\.)?js"/i);
+  const matchPublicPath = root.match(/<script.*src="([^"]*)\/?umi\.(\w+\.)?js"[^>]*>/i);
   const publicPath = matchPublicPath ? matchPublicPath[1] : '/';
   const context = {
     publicPath,
