@@ -110,6 +110,22 @@ const render = server({
 });
 ```
 
+### Client utils
+
+`umi-server` provide the following utils like `isBrowser`:
+
+```js
+import React from 'react';
+import isBrowser from 'umi-server/lib/isBrowser';
+
+export default () => {
+  const env = isBrowser() ? 'client' : 'server';
+  return (
+    <p>current env {env}</p>
+  )
+}
+```
+
 #### options
 
 | Parameter | Description | Type | Optional Value | Default |

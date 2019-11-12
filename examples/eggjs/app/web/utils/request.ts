@@ -1,7 +1,7 @@
 import fetch from 'umi-request';
 import { message } from 'antd';
 import qs from 'qs';
-import isBrowser from './isBrowser';
+import isBrowser from 'umi-server/lib/isBrowser';
 
 export interface IOption extends RequestInit {
   params?: object;

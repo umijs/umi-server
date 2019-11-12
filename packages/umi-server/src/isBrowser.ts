@@ -1,3 +1,4 @@
+// using in client
 export default () =>
   typeof window !== 'undefined' &&
   typeof window.document !== 'undefined' &&

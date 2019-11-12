@@ -1,6 +1,6 @@
 import * as url from 'url';
 import { parse } from 'qs';
-import isBrowser from './utils/isBrowser';
+import isBrowser from 'umi-server/lib/isBrowser';
 
 const localeAlias = {
   'zh-cn': 'zh-CN',
