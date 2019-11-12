@@ -7,12 +7,15 @@ const restaurants = require('../data/restaurants.json');
 class HomeController extends Controller {
   constructor(ctx) {
     super(ctx);
+    const { env } = ctx.app.config;
     this.root = join(__dirname, '..', 'public');
     this.umiServerPath = join(this.root, 'umi.server.js');
     this.render = server({
       root: join(__dirname, '..', 'public'),
-      polyfill: true,
+      // avoid the useLayoutEffect warning in react-redux
+      polyfill: false,
       postProcessHtml: [this.handlerTitle],
+      dev: env === 'local',
     });
   }
 
@@ -29,25 +32,13 @@ class HomeController extends Controller {
 
   async index() {
     const { ctx } = this;
-    const { env } = ctx.app.config;
-
-    if (env === 'local') {
-      delete require.cache[require.resolve(this.umiServerPath)];
-    }
-
-    const renderOpts = {
-      polyfill: {
-        host: `${ctx.request.protocol}://${ctx.request.host}`,
+    global.host = `${ctx.request.protocol}://${ctx.request.host}`;
+    global.href = ctx.request.href;
+    const { ssrHtml } = await this.render({
+      req: {
+        url: ctx.request.url,
       },
-    };
-    const { ssrHtml } = await this.render(
-      {
-        req: {
-          url: ctx.request.url,
-        },
-      },
-      renderOpts,
-    );
+    });
 
     ctx.body = await ctx.renderString(ssrHtml);
   }

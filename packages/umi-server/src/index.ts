@@ -47,6 +47,8 @@ export interface IConfig {
   customRender?: (args: IRenderArgs) => Promise<string>;
   /** handler function for user to modify render html accounding cheerio */
   postProcessHtml?: IHandler | IHandler[];
+  /** is dev env, default NODE_ENV=development */
+  dev?: boolean;
   /** TODO: serverless */
   serverless?: boolean;
 }
@@ -89,12 +91,18 @@ const server: IServer = config => {
     polyfill = false,
     postProcessHtml = $ => $,
     customRender,
+    dev = process.env.NODE_ENV === 'development',
   } = config;
   const polyfillHost =
     typeof polyfill === 'object' && polyfill.host ? polyfill.host : 'http://localhost';
   const nodePolyfill = nodePolyfillDecorator(!!polyfill, polyfillHost);
   const serverRender = require(filename);
   const manifestFile = require(manifest);
+  if (dev) {
+    // remove module cache when in dev mode
+    delete require.cache[require.resolve(filename)];
+    delete require.cache[require.resolve(manifest)];
+  }
   const { ReactDOMServer } = serverRender;
 
   _log('manifestFile', _log);

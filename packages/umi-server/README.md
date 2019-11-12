@@ -117,6 +117,7 @@ const render = server({
 | root | prefix path for `filename` and `manifest`, if both in the same directory | string | -- | undefined |
 | filename | umi ssr server-side file | string | -- | `${root}/umi.server.js` |
 | manifest | umi ssr manifest file | string | -- | `${root}/ssr-client-mainifest.json` |
+| dev | whether in development env | boolean | -- | process.env.NODE_ENV === 'development' |
 | polyfill | whether use polyfill for server-render | boolean | { host: string } | -- | false |
 | staticMarkup | use [renderToStaticMarkup](https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup) | boolean | -- | false |
 | postProcessHtml | handler function for user to modify render html accounding cheerio | ($, args) => $ | Array | -- | $ => $ |

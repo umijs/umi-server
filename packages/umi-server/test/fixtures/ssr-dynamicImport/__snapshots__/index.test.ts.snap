@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ssr-dynamicImport ssr-dynamicImport 1`] = `
-"<!DOCTYPE html><html data-reactroot><head><link rel=\\"stylesheet\\" href=\\"/dist/\\"><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;
+"<!DOCTYPE html><html data-reactroot><head><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;
   window.g_initialData = {\\"list\\":[{\\"name\\":\\"Alice\\"},{\\"name\\":\\"Jack\\"},{\\"name\\":\\"Tony\\"}]};</script><script>window.routerBase = \\"/\\";</script><link rel=\\"preload\\" href=\\"/dist/p__index.async.js\\" as=\\"script\\"></head><body><div id=\\"root\\"><div class=\\"wrapper\\"><h1>Hello UmiJS SSR</h1><ul><li>Alice</li><li>Jack</li><li>Tony</li></ul><button>0</button></div></div><script src=\\"/dist/umi.js\\"></script></body></html>"
 `;
 
 exports[`ssr-dynamicImport ssr-dynamicImport2 1`] = `
-"<!DOCTYPE html><html data-reactroot lang=\\"zh\\"><head><link rel=\\"stylesheet\\" href=\\"/dist/\\"><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;
+"<!DOCTYPE html><html data-reactroot lang=\\"zh\\"><head><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;
   window.g_initialData = {\\"list\\":[{\\"name\\":\\"Alice\\"},{\\"name\\":\\"Jack\\"},{\\"name\\":\\"Tony\\"}]};</script><script>window.routerBase = \\"/\\";</script><link rel=\\"preload\\" href=\\"/dist/p__index.async.js\\" as=\\"script\\"></head><body><div id=\\"root\\"><div class=\\"wrapper\\"><h1>Hello UmiJS SSR</h1><ul><li>Alice</li><li>Jack</li><li>Tony</li></ul><button>0</button></div></div><script src=\\"/dist/umi.js\\"></script></body></html>"
 `;
 
 exports[`ssr-dynamicImport ssr-postProcessHtml array 1`] = `
-"<!DOCTYPE html><html data-reactroot><head><meta name=\\"description\\" content=\\"Hello Description\\"><title>Hello</title><link rel=\\"stylesheet\\" href=\\"/dist/\\"><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;
+"<!DOCTYPE html><html data-reactroot><head><meta name=\\"description\\" content=\\"Hello Description\\"><title>Hello</title><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;
   window.g_initialData = {\\"list\\":[{\\"name\\":\\"Alice\\"},{\\"name\\":\\"Jack\\"},{\\"name\\":\\"Tony\\"}]};</script><script>window.routerBase = \\"/\\";</script><link rel=\\"preload\\" href=\\"/dist/p__index.async.js\\" as=\\"script\\"></head><body><div id=\\"root\\"><div class=\\"wrapper\\"><h1>Hello UmiJS SSR</h1><ul><li>Alice</li><li>Jack</li><li>Tony</li></ul><button>0</button></div></div><script src=\\"/dist/umi.js\\"></script></body></html>"
 `;
 
 exports[`ssr-dynamicImport ssr-postProcessHtml default value 1`] = `
-"<!DOCTYPE html><html data-reactroot><head><title>Hello</title><link rel=\\"stylesheet\\" href=\\"/dist/\\"><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;
+"<!DOCTYPE html><html data-reactroot><head><title>Hello</title><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;
   window.g_initialData = {\\"list\\":[{\\"name\\":\\"Alice\\"},{\\"name\\":\\"Jack\\"},{\\"name\\":\\"Tony\\"}]};</script><script>window.routerBase = \\"/\\";</script><link rel=\\"preload\\" href=\\"/dist/p__index.async.js\\" as=\\"script\\"></head><body><div id=\\"root\\"><div class=\\"wrapper\\"><h1>Hello UmiJS SSR</h1><ul><li>Alice</li><li>Jack</li><li>Tony</li></ul><button>0</button></div></div><script src=\\"/dist/umi.js\\"></script></body></html>"
 `;

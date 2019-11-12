@@ -10,7 +10,7 @@ const isDev = process.env.NODE_ENV === 'development';
 const root = join(__dirname, 'dist');
 const render = server({
   root: join(__dirname, 'dist'),
-  polyfill: true,
+  polyfill: false,
 });
 
 const app = new Koa();
