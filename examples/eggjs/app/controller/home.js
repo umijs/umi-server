@@ -4,37 +4,30 @@ const server = require('umi-server');
 const { Helmet } = require('react-helmet');
 const restaurants = require('../data/restaurants.json');
 
+const handlerTitle = $ => {
+  try {
+    const helmet = Helmet.renderStatic();
+    const title = helmet.title.toString();
+    $('head').prepend(title);
+  } catch (e) {
+    this.ctx.logger.error('postProcessHtml title', e);
+  }
+  return $;
+};
+
+const root = join(__dirname, '..', 'public');
+const render = server({
+  root,
+  polyfill: false,
+  postProcessHtml: [handlerTitle],
+});
+
 class HomeController extends Controller {
-  constructor(ctx) {
-    super(ctx);
-    const { env } = ctx.app.config;
-    this.root = join(__dirname, '..', 'public');
-    this.umiServerPath = join(this.root, 'umi.server.js');
-    this.render = server({
-      root: join(__dirname, '..', 'public'),
-      // avoid the useLayoutEffect warning in react-redux
-      polyfill: false,
-      postProcessHtml: [this.handlerTitle],
-      dev: env === 'local',
-    });
-  }
-
-  handlerTitle($) {
-    try {
-      const helmet = Helmet.renderStatic();
-      const title = helmet.title.toString();
-      $('head').prepend(title);
-    } catch (e) {
-      this.ctx.logger.error('postProcessHtml title', e);
-    }
-    return $;
-  }
-
   async index() {
     const { ctx } = this;
     global.host = `${ctx.request.protocol}://${ctx.request.host}`;
     global.href = ctx.request.href;
-    const { ssrHtml } = await this.render({
+    const { ssrHtml } = await render({
       req: {
         url: ctx.request.url,
       },
