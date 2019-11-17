@@ -15,18 +15,21 @@ const handlerTitle = $ => {
   return $;
 };
 
-const root = join(__dirname, '..', 'public');
-const render = server({
-  root,
-  polyfill: false,
-  postProcessHtml: [handlerTitle],
-});
-
 class HomeController extends Controller {
+  constructor(props) {
+    super(props);
+    this.root = join(__dirname, '..', 'public');
+  }
   async index() {
     const { ctx } = this;
     global.host = `${ctx.request.protocol}://${ctx.request.host}`;
     global.href = ctx.request.href;
+    const render = server({
+      root: this.root,
+      polyfill: false,
+      postProcessHtml: [handlerTitle],
+      dev: ctx.app.config.env === 'local',
+    });
     const { ssrHtml } = await render({
       req: {
         url: ctx.request.url,
