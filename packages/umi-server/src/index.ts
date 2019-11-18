@@ -117,6 +117,15 @@ const server: IServer = config => {
     });
     const serverRenderRes: Omit<IRenderArgs, 'chunkMap'> = await serverRender.default(ctx);
     const { htmlElement, matchPath, g_initialData } = serverRenderRes;
+    // if not found, return undefined
+    if (!matchPath) {
+      return {
+        ssrHtml: undefined,
+        matchPath: undefined,
+        chunkMap: { js: [], css: [] },
+        g_initialData: {},
+      };
+    }
     const chunkMap: IDynamicChunkMap = manifestFile[matchPath];
     const reactRender = ReactDOMServer[staticMarkup ? 'renderToStaticMarkup' : 'renderToString'];
 
