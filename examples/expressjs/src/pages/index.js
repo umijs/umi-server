@@ -34,7 +34,7 @@ function Page(props) {
   }, [search, data]);
   return (
     <div className={styles.normal}>
-      <h1>Github Trending Koa.js</h1>
+      <h1>Github Trending Express.js</h1>
 
       <List
         itemLayout="horizontal"

@@ -9,7 +9,7 @@ const isDev = process.env.NODE_ENV === 'development';
 
 const root = join(__dirname, 'dist');
 const render = server({
-  root: join(__dirname, 'dist'),
+  root,
   polyfill: false,
   dev: isDev,
 });
@@ -17,7 +17,6 @@ const render = server({
 const app = new Koa();
 app.use(
   compress({
-    filter: contentType => /text/i.test(contentType),
     threshold: 2048,
     flush: require('zlib').Z_SYNC_FLUSH,
   }),
