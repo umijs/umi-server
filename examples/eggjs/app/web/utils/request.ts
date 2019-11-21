@@ -13,7 +13,9 @@ const request = (url, option: IOption) => {
     ? qs.stringify(params, { addQueryPrefix: true, arrayFormat: 'brackets', encode: false })
     : '';
   // https://github.com/bitinn/node-fetch/issues/481
-  const reqUrl = `${isBrowser() ? '' : `${global.host}`}${url}${paramsStr}`;
+  const reqUrl = `${
+    isBrowser() ? '' : `${global.host || 'http://localhost:7001'}`
+  }${url}${paramsStr}`;
   return fetch(reqUrl, restOpts).catch(e => {
     console.error('e', e);
     if (typeof document !== 'undefined' && !window.USE_PRERENDER) {

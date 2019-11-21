@@ -21,7 +21,7 @@ const config: IConfig = {
           ...headScripts,
           {
             content: 'window.USE_PRERENDER = true;',
-          }
+          },
         ],
         // TODO, page router css leak
         dynamicImport: false,
@@ -30,12 +30,16 @@ const config: IConfig = {
         // },
       },
     ],
-    ['@umijs/plugin-prerender', {
-      runInMockContext: {
-        // your server address, for prerender get data
-        url: 'http://localhost:7001',
-      }
-    }],
+    [
+      '@umijs/plugin-prerender',
+      {
+        polyfill: false,
+        runInMockContext: {
+          // your server address, for prerender get data
+          url: 'http://localhost:7001',
+        },
+      },
+    ],
   ],
 };
 

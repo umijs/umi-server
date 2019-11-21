@@ -32,7 +32,7 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       isMobile,
-      show: false, // 如果不是 dva 2.0 请删除
+      show: true, // 如果不是 dva 2.0 请删除
     };
   }
 

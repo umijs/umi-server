@@ -11,8 +11,10 @@ const localeAlias = {
 
 export const locale = {
   default: () => {
+    const browser = isBrowser();
+    const href = browser ? window.location.href : global.href;
     // handle url /?locale=
-    const { search = '' } = url.parse(isBrowser() ? window.location.href : global.href);
+    const { search = '' } = url.parse(href || '/');
     const { locale: searchLocale = '' } = parse(search, { ignoreQueryPrefix: true });
     const queryLocale = localeAlias[searchLocale.toLowerCase()];
     const localLocale =
