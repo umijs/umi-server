@@ -27,7 +27,7 @@
     "lodash": "^4.17.15",
     "prettier": "^1.18.2",
     "typescript": "^3.6.4",
-    "umi": "^2.12.0-beta.3",
+    "umi": "^2.12.2",
     "umi-plugin-react": "^1.12.7",
     "umi-test": "^1.8.2",
     "umi-types": "^0.3.15",
