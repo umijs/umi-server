@@ -24,7 +24,7 @@
     "umi-request": "^1.2.4",
     "umi-server": "^1.0.0",
     "enquire-js": "^0.2.1",
-    "rc-queue-anim": "^1.8.2",
+    "rc-queue-anim": "^1.8.3",
     "rc-scroll-anim": "^2.6.2",
     "rc-tween-one": "^2.6.5"
   },
