@@ -11,6 +11,7 @@ const root = join(__dirname, 'dist');
 const render = server({
   root: join(__dirname, 'dist'),
   polyfill: false,
+  dev: isDev,
 });
 
 const app = new Koa();
@@ -28,9 +29,6 @@ app.use(async (ctx, next) => {
   if (!ext) {
     ctx.type = 'text/html';
     ctx.status = 200;
-    if (isDev) {
-      delete require.cache[require.resolve('./dist/umi.server')];
-    }
     const { ssrHtml } = await render({
       req: {
         url: ctx.request.url,
