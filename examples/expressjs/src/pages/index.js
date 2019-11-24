@@ -66,7 +66,7 @@ function Page(props) {
   );
 }
 
-Page.getInitialProps = async ({ store, route, isServer, req }) => {
+Page.getInitialProps = async ({ req }) => {
   // console.log('Home getInitialProps', store, route, isServer);
   const res = await fetch(`https://github-trending-api.now.sh/repositories${req.url || ''}`);
   return {

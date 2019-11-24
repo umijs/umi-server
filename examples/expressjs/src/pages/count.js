@@ -43,6 +43,8 @@ Page.getInitialProps = async ({ store, route, isServer }) => {
   await store.dispatch({
     type: 'count/init',
   });
+  const { count } = store.getState();
+  return { count };
 };
 
 export default connect(state => ({

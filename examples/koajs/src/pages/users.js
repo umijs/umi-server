@@ -17,7 +17,9 @@ function Page(props) {
       <h1>Page users</h1>
       <h2>users</h2>
       <ul>
-        { (list || []).map(user => <li key={user}>{user}</li>) }
+        {(list || []).map(user => (
+          <li key={user}>{user}</li>
+        ))}
       </ul>
     </div>
   );
@@ -25,7 +27,7 @@ function Page(props) {
 
 Page.getInitialProps = async () =>
   // console.log('Users getInitialProps');
-   Promise.resolve({
+  Promise.resolve({
     list: ['foo', 'bar'],
   });
 export default Page;
