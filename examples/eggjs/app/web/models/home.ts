@@ -29,16 +29,16 @@ const HomeModel: Model = {
   },
   reducers: {
     saveRests(state, { payload, location }) {
-      if (state.rests.length > 0) {
-        state.rests = state.rests.concat(payload.items || []);
-      } else {
-        state.rests = payload.items || [];
-      }
-      state.rank_id = payload.meta.rank_id || '';
-      state.location = location;
+      return {
+        rests: payload.items || [],
+        rank_id: payload.meta.rank_id || '',
+        location,
+      };
     },
     changeCoords(state, { payload }) {
-      state.coords = payload;
+      return {
+        coords: payload,
+      };
     },
   },
 };

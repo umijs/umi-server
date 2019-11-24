@@ -24,7 +24,8 @@ class Home extends React.Component {
     address: '当前地址',
   };
   // client and server both call
-  static getInitialProps = async ({ store, route, location, isServer }) => {
+  static getInitialProps = async params => {
+    const { store, route, location, isServer } = params;
     // new dva ins
     await store.dispatch({
       type: 'home/queryRests',
@@ -39,6 +40,8 @@ class Home extends React.Component {
       // umi-history not patch server location, will fix
       location,
     });
+    const { home } = store.getState();
+    return home;
   };
 
   onSearch = value => {
