@@ -121,6 +121,12 @@ export const nodePolyfillDecorator: INodePolyfillDecorator = (
           ...nextObj,
         },
       });
+      // @ts-ignore
+      global.location = {
+        // patch location.origin
+        origin: `${nextObj.protocol}//${nextObj.hostname}${nextObj.port ? `:${nextObj.port}` : ''}`,
+        ...nextObj,
+      };
       if (runInMockContext) {
         let mockContext;
         if (isPlainObject(runInMockContext)) {

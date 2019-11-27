@@ -18,7 +18,8 @@ jobs:
     - run: yarn install
     - run: yarn bootstrap
     - run: yarn build
-    - run: yarn test -- --forceExit
+    - run: yarn startBuild
+    - run: yarn run test:coverage -- --forceExit
       env:
         CI: true
         HEADLESS: false

@@ -1,4 +1,3 @@
-
 const { join } = require('path');
 const glob = require('glob');
 const { fork } = require('child_process');
@@ -32,6 +31,11 @@ async function build({ cwd }) {
     cwd: process.cwd(),
     dot: false,
   });
-  const buildPromise = fixtures.map(dir => build({ cwd: dir }));
-  await Promise.all(buildPromise);
-})()
+  const executors = fixtures.map(dir => build({ cwd: dir }));
+  let p = Promise.resolve();
+  executors.forEach(executor => {
+    p = p.then(executor).catch(e => {
+      console.error('executor error', e);
+    });
+  });
+})();

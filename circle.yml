@@ -25,11 +25,11 @@ jobs:
       - restore_cache:
           key: node-modules-{{ checksum "package.json" }}
       - run: npm install
-      - run: npm run lint
       - run: npm run bootstrap
       - run: npm run build
+      - run: npm run startBuild
       - run:
-          command: npm run test
+          command: npm run test:coverage
           no_output_timeout: 300m
       - run: bash <(curl -s https://codecov.io/bash)
       - save_cache:

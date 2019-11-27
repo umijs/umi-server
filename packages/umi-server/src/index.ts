@@ -1,7 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 import { join } from 'path';
 import { load } from 'cheerio';
-import React from 'react';
+import * as React from 'react';
 import compose from './compose';
 import _log from './debug';
 import {
