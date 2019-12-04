@@ -7,17 +7,19 @@
     "clean": "lerna clean -y",
     "publish": "npm run changelog && npm run build && lerna publish",
     "startBuild": "node scripts/startBuild.js",
+    "benchmark": "node packages/umi-server/test/fixtures/ssr/benchmark.js",
     "test": "npm run startBuild && npm run test:coverage",
     "test:coverage": "umi-test --coverage",
     "test:spec": "umi-test",
     "lint-staged": "lint-staged",
-    "tsc": "tsc --noEmit",
     "lint-staged:js": "eslint --fix --ext .js,.jsx,.ts,.tsx",
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx --format=pretty ./packages"
   },
   "devDependencies": {
     "@types/jest": "^24.0.5",
     "@umijs/fabric": "^1.2.1",
+    "beautify-benchmark": "^0.2.4",
+    "benchmark": "^2.1.4",
     "enzyme": "^3.10.0",
     "eslint": "^5.16.0",
     "eslint-plugin-prettier": "^3.1.1",
@@ -29,6 +31,7 @@
     "lint-staged": "^9.4.2",
     "lodash": "^4.17.15",
     "prettier": "^1.18.2",
+    "react-dom": "^16.12.0",
     "typescript": "^3.6.4",
     "umi": "^2.12.2",
     "umi-plugin-react": "^1.12.7",
@@ -38,7 +41,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run tsc && npm run lint-staged"
+      "pre-commit": "npm run lint-staged"
     }
   },
   "lint-staged": {
