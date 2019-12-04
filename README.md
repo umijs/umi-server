@@ -74,6 +74,10 @@ console.log('http://localhost:8000')
 
 Visit [http://localhost:8000](http://localhost:8000).
 
+## 📈 Benchmark
+
+https://umijs.github.io/umi-server/dev/bench/index.html
+
 ## ❓FAQ
 
 Dingtalk Group
