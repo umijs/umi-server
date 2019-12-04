@@ -36,7 +36,7 @@ class HomeController extends Controller {
       },
     });
 
-    ctx.body = await ctx.renderString(ssrHtml);
+    ctx.body = ssrHtml;
   }
 
   async api() {
