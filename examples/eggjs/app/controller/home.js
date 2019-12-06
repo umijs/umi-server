@@ -30,11 +30,15 @@ class HomeController extends Controller {
       postProcessHtml: [handlerTitle],
       dev: ctx.app.config.env === 'local',
     });
-    const { ssrHtml } = await render({
+    const { ssrHtml, matchPath } = await render({
       req: {
         url: ctx.request.url,
       },
     });
+    if (!matchPath) {
+      ctx.body = '404 Not Found';
+      return;
+    }
 
     ctx.body = ssrHtml;
   }

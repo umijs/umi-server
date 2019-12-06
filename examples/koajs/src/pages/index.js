@@ -1,41 +1,21 @@
 /**
  * title: Github Trending using umi ssr
  */
-import { useEffect, useState } from 'react';
-import { isEqual } from 'lodash';
+import React from 'react';
 
-import { List, Avatar, Tag, Icon } from 'antd';
+import { List, Avatar, Tag, Icon, Button } from 'antd';
 import fetch from 'umi-request';
 import styles from './index.less';
 
 function Page(props) {
-  const [data, setData] = useState(props.data || []);
-  const colors = [
-    'magenta',
-    'red',
-    'volcano',
-    'orange',
-    'gold',
-    'lime',
-    'green',
-    'cyan',
-    'blue',
-    'geekblue',
-    'purple',
-  ];
-  const { search } = props.location;
-  useEffect(() => {
-    if (!isEqual(data, props.data)) {
-      (async () => {
-        const res = await fetch(`https://github-trending-api.now.sh/repositories${search}`);
-        setData(res);
-      })();
-    }
-  }, [search, data]);
+  const { data } = props;
+
   return (
     <div className={styles.normal}>
+      <Button href="/" type="primary">
+        全部
+      </Button>
       <h1>Github Trending Koa.js</h1>
-
       <List
         itemLayout="horizontal"
         dataSource={data}
@@ -45,11 +25,11 @@ function Page(props) {
               avatar={<Avatar src={item.avatar} />}
               title={
                 <p className={styles.title}>
-                  <a target="_blank" href={item.url}>
+                  <a target="_blank" rel="noopener noreferrer" href={item.url}>
                     {item.name}
                   </a>
                   <Tag style={{ marginRight: 8 }} color={item.languageColor}>
-                    {item.language}
+                    <a href={`/?language=${item.language}`}>{item.language}</a>
                   </Tag>
                   <span className={styles.star}>
                     <Icon theme="filled" type="star" />
@@ -66,8 +46,7 @@ function Page(props) {
   );
 }
 
-Page.getInitialProps = async ({ store, route, isServer, req }) => {
-  // console.log('Home getInitialProps', store, route, isServer);
+Page.getInitialProps = async ({ store, route, isServer, req, location }) => {
   const res = await fetch(`https://github-trending-api.now.sh/repositories${req.url || ''}`);
   return {
     data: res,

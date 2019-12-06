@@ -5,7 +5,11 @@ export const metas = [
   { name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
   { name: 'format-detection', content: 'telephone=no' },
   { name: 'format-detection', content: 'email=no' },
-  { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no' },
+  {
+    name: 'viewport',
+    content:
+      'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no',
+  },
 ];
 export const headScripts = [
   '//as.alipayobjects.com/g/animajs/anima-hd/5.0.0/vw.js',
@@ -17,7 +21,7 @@ export const headScripts = [
     } else {
       flex();
     }
-  })();`
+  })();`,
 ];
 
 const config: IConfig = {
@@ -40,10 +44,9 @@ const config: IConfig = {
         dva: {
           immer: true,
         },
-        // TODO, page router css leak
-        // dynamicImport: {
-        //   webpackChunkName: true,
-        // },
+        dynamicImport: {
+          webpackChunkName: true,
+        },
       },
     ],
   ],

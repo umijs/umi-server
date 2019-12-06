@@ -1,6 +1,9 @@
 name: render Benchmark
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   benchmark:
@@ -37,7 +40,7 @@ jobs:
           tool: 'benchmarkjs'
           alert-threshold: '0%'
           output-file-path: output.txt
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           comment-on-alert: true
           fail-on-alert: true
           auto-push: true
