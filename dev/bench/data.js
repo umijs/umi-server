@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1575632146275,
+  "lastUpdate": 1575632153037,
   "repoUrl": "https://github.com/umijs/umi-server",
   "entries": {
     "Benchmark": [
@@ -758,6 +758,44 @@ window.BENCHMARK_DATA = {
             "name": "render /news/1",
             "value": 3069,
             "range": "±1.76%",
+            "unit": "ops/sec",
+            "extra": "79 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "45808948@qq.com",
+            "name": "信鑫-King",
+            "username": "ycjcl868"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b7225f7c9164344169de06ee6c75797b6ffb537a",
+          "message": "fix: koajs and expressjs demo (#53)\n\n* fix: koajs and expressjs demo\r\n\r\n* fix: deploy\r\n\r\n* fix: 404\r\n\r\n* upd: umi version\r\n\r\n* fix: benchmark when merge",
+          "timestamp": "2019-12-06T19:32:41+08:00",
+          "tree_id": "2e2cdde01005dc9b9a1879abefe9d98e0a08593e",
+          "url": "https://github.com/umijs/umi-server/commit/b7225f7c9164344169de06ee6c75797b6ffb537a"
+        },
+        "date": 1575632152516,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "render /",
+            "value": 367,
+            "range": "±170.73%",
+            "unit": "ops/sec",
+            "extra": "67 samples"
+          },
+          {
+            "name": "render /news/1",
+            "value": 3847,
+            "range": "±2.41%",
             "unit": "ops/sec",
             "extra": "79 samples"
           }
