@@ -35,17 +35,6 @@ function Page(props) {
   );
 }
 
-Page.getInitialProps = async ({ store }) => {
-  // console.log('Count getInitialProps', store, route, isServer);
-  await store.dispatch({
-    type: 'count/init',
-  });
-  const { count } = store.getState();
-  return {
-    count,
-  };
-};
-
 export default connect(state => ({
-  count: state.count,
+  count: state.count.count,
 }))(Page);

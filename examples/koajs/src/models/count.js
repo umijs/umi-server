@@ -1,4 +1,3 @@
-
 function delay(time) {
   return new Promise(resolve => {
     setTimeout(resolve, time);
@@ -6,20 +5,25 @@ function delay(time) {
 }
 
 export default {
-  state: 0,
+  namespace: 'count',
+  state: {
+    count: 0,
+  },
   reducers: {
     add(state) {
-      return state + 1;
+      return {
+        count: state.count + 1,
+      };
     },
     reset(state) {
-      return 0;
+      return {
+        count: 0,
+      };
     },
   },
   effects: {
     *init({ type, payload }, { put, call, select }) {
       yield call(delay, 1000);
-      yield put({ type: 'add' });
-      yield put({ type: 'add' });
     },
   },
-}
+};

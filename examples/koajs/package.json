@@ -2,7 +2,7 @@
   "scripts": {
     "build": "umi build",
     "start": "npm run build && nodemon server.js",
-    "dev": "cross-env NODE_ENV=development concurrently \"umi dev\" \"nodemon server.js\"",
+    "dev": "cross-env UMI_UI=none NODE_ENV=development concurrently \"umi dev\" \"nodemon server.js\"",
     "debug": "cross-env RM_TMPDIR=none COMPRESS=none UMI_ENV=prod umi build && node server.js"
   },
   "engines": {
@@ -26,7 +26,7 @@
   "devDependencies": {
     "concurrently": "^4.1.2",
     "nodemon": "^1.19.1",
-    "umi": "^2.12.2",
+    "umi": "^2.12.5-beta.1",
     "umi-plugin-gh-pages": "^0.1.0",
     "umi-plugin-react": "^1.9.0"
   }

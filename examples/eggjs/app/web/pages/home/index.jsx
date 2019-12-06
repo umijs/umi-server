@@ -40,8 +40,6 @@ class Home extends React.Component {
       // umi-history not patch server location, will fix
       location,
     });
-    const { home } = store.getState();
-    return home;
   };
 
   onSearch = value => {

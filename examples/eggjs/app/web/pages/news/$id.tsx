@@ -36,24 +36,7 @@ const News: React.SFC<{}> = props => {
   );
 };
 
-(News as any).getInitialProps = async ({ route, store, isServer }) => {
-  const { id } = route.params;
-  const data = [
-    {
-      id: 0,
-      name: 'zero',
-    },
-    {
-      id: 1,
-      name: 'hello',
-    },
-    {
-      id: 2,
-      name: 'world',
-    },
-  ];
-  return Promise.resolve(data[id] || data[0]);
-};
+(News as any).getInitialProps = async props => {};
 
 export default connect(({ news }) => ({
   count: news.count,

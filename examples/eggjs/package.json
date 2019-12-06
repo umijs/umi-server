@@ -52,7 +52,7 @@
     "eslint": "^5.8.0",
     "eslint-config-egg": "^7.1.0",
     "redbox-react": "^1.5.0",
-    "umi": "^2.12.0-beta.3",
+    "umi": "^2.12.5-beta.1",
     "umi-plugin-ecma5-validator": "^0.1.0",
     "umi-plugin-gh-pages": "^0.2.0",
     "umi-plugin-react": "^1.9.0",

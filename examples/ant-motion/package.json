@@ -31,7 +31,7 @@
   "devDependencies": {
     "concurrently": "^4.1.2",
     "nodemon": "^1.19.1",
-    "umi": "^2.12.2",
+    "umi": "^2.12.5-beta.1",
     "umi-plugin-gh-pages": "^0.1.0",
     "umi-plugin-react": "^1.9.0"
   }
