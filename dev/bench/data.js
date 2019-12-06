@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1575610788381,
+  "lastUpdate": 1575610793363,
   "repoUrl": "https://github.com/umijs/umi-server",
   "entries": {
     "Benchmark": [
@@ -570,6 +570,44 @@ window.BENCHMARK_DATA = {
             "range": "±2.42%",
             "unit": "ops/sec",
             "extra": "77 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "45808948@qq.com",
+            "name": "ycjcl868",
+            "username": "ycjcl868"
+          },
+          "committer": {
+            "email": "45808948@qq.com",
+            "name": "ycjcl868",
+            "username": "ycjcl868"
+          },
+          "distinct": true,
+          "id": "338b4e10a63aab8992ba956663a9052f5abe3eee",
+          "message": "fix: koajs and expressjs demo",
+          "timestamp": "2019-12-06T13:36:13+08:00",
+          "tree_id": "f44f10bf3d8e61701e759a8401823c040a8b3977",
+          "url": "https://github.com/umijs/umi-server/commit/338b4e10a63aab8992ba956663a9052f5abe3eee"
+        },
+        "date": 1575610789803,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "render /",
+            "value": 299,
+            "range": "±172.59%",
+            "unit": "ops/sec",
+            "extra": "63 samples"
+          },
+          {
+            "name": "render /news/1",
+            "value": 3426,
+            "range": "±1.56%",
+            "unit": "ops/sec",
+            "extra": "78 samples"
           }
         ]
       }
