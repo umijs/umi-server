@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1575632153037,
+  "lastUpdate": 1576078090937,
   "repoUrl": "https://github.com/umijs/umi-server",
   "entries": {
     "Benchmark": [
@@ -798,6 +798,44 @@ window.BENCHMARK_DATA = {
             "range": "±2.41%",
             "unit": "ops/sec",
             "extra": "79 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "45808948@qq.com",
+            "name": "信鑫-King",
+            "username": "ycjcl868"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "053bf8dd0dbd377461126d6f20bc2263225c3aff",
+          "message": "feat: demo useModel ssr example (#56)",
+          "timestamp": "2019-12-11T23:24:48+08:00",
+          "tree_id": "f84a5b32147914310baf6fda12f9719ef2b8515a",
+          "url": "https://github.com/umijs/umi-server/commit/053bf8dd0dbd377461126d6f20bc2263225c3aff"
+        },
+        "date": 1576078090625,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "render /",
+            "value": 355,
+            "range": "±169.79%",
+            "unit": "ops/sec",
+            "extra": "69 samples"
+          },
+          {
+            "name": "render /news/1",
+            "value": 3554,
+            "range": "±2.39%",
+            "unit": "ops/sec",
+            "extra": "72 samples"
           }
         ]
       }
