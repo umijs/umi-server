@@ -9,6 +9,7 @@
 - [x] ant-motion demo [preview](https://ssr-demo-motion.umijs.org)
 - [x] Node.js demo [preview](https://ssr-demo-normal.umijs.org)
 - [x] Koajs demo [preview](https://ssr-demo-koajs.umijs.org)
+- [x] useModel demo [preview](https://ssr-demo-useModel.umijs.org)
 - [x] expressjs demo [preview](https://ssr-demo-express.umijs.org)
 - [x] eggjs Pre Render [preview](https://ssr-demo-eggjs-prerender.umijs.org)
 - [ ] midway example

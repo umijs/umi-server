@@ -78,6 +78,29 @@ jobs:
         node --eval "console.log(require.resolve('umi-server'));"
         yarn build
         now --token=$ZEIT_TOKEN --prod --force --scope umijs
+  deploy-useModel:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: build-link
+      run: |
+        yarn install
+        yarn bootstrap
+        yarn build
+        cd packages/umi-server && yarn link && cd ..
+        cd umi-plugin-prerender && yarn link && cd ../..
+    - name: examples
+      env:
+        BUILD_ID: ${{ github.sha }}
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      working-directory: ./examples/useModel
+      run: |
+        yarn
+        yarn link umi-server @umijs/plugin-prerender
+        node --eval "console.log(require.resolve('umi-server'));"
+        yarn build
+        now --token=$ZEIT_TOKEN --prod --force --scope umijs
   deploy-eggjs:
     runs-on: ubuntu-latest
     steps:
