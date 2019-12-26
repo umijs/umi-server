@@ -12,6 +12,7 @@
 - [x] useModel demo [preview](https://ssr-demo-useModel.umijs.org)
 - [x] expressjs demo [preview](https://ssr-demo-express.umijs.org)
 - [x] eggjs Pre Render [preview](https://ssr-demo-eggjs-prerender.umijs.org)
+- [x] Aliyun FC demo [preview](http://umi.ssr-fc.com)
 - [ ] midway example
 
 ## 📦 Packages

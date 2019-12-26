@@ -3,8 +3,17 @@
     "target": "esnext",
     "moduleResolution": "node",
     "jsx": "preserve",
-    "declaration": true,
+    "declaration": false,
     "esModuleInterop": true
   },
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.js", "lib", "fixtures", "examples", "*.d.ts"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.test.js",
+    "lib",
+    "fixtures",
+    "examples",
+    "*.d.ts"
+  ]
 }

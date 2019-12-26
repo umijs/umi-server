@@ -1,0 +1,42 @@
+{
+  "scripts": {
+    "build": "concurrently \"npm run build:umi\" \"npm run build:fc\"",
+    "build:umi": "umi build",
+    "build:fc": "ncc build index.ts -o dist",
+    "deploy": "npm run build && fun deploy -t ./template.yml"
+  },
+  "engines": {
+    "node": ">8.0.0"
+  },
+  "peerDependencies": {
+    "co": "4.6.0",
+    "gm": "1.23.0",
+    "ali-oss": "4.10.1",
+    "ali-mns": "2.6.5",
+    "tablestore": "4.2.0",
+    "aliyun-sdk": "1.10.12",
+    "@alicloud/fc2": "2.1.0",
+    "opencv": "6.0.0",
+    "body": "5.1.0",
+    "raw-body": "2.3.2"
+  },
+  "dependencies": {
+    "@webserverless/fc-express": "0.1.1",
+    "express": "^4.17.1",
+    "umi-server": "^1.0.0"
+  },
+  "devDependencies": {
+    "@alicloud/fun": "^2.16.5",
+    "@zeit/ncc": "^0.20.5",
+    "antd": "^3.22.0",
+    "concurrently": "^4.1.2",
+    "nodemon": "^1.19.1",
+    "react": "^16.8.6",
+    "react-document-title": "^2.0.3",
+    "react-dom": "^16.8.6",
+    "umi": "^2.12.5",
+    "umi-plugin-gh-pages": "^0.1.0",
+    "umi-plugin-react": "^1.9.0",
+    "umi-request": "^1.2.4"
+  }
+}
