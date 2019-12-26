@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1576078094598,
+  "lastUpdate": 1577363682802,
   "repoUrl": "https://github.com/umijs/umi-server",
   "entries": {
     "Benchmark": [
@@ -874,6 +874,44 @@ window.BENCHMARK_DATA = {
             "range": "±2.75%",
             "unit": "ops/sec",
             "extra": "77 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "45808948@qq.com",
+            "name": "信鑫-King",
+            "username": "ycjcl868"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "cac48c262f65b2b14d2be34013137b4c2300469b",
+          "message": "feat: fc aliyun ssr (#62)\n\n* feat: aliyun fc example\r\n\r\n* fix: fuc\r\n\r\n* fix: use ncc\r\n\r\n* fix: funignore\r\n\r\n* fix: build fc\r\n\r\n* fix: start\r\n\r\n* fix: umi-ssr\r\n\r\n* feat: support fc ssr\r\n\r\n* feat: aliyun fc",
+          "timestamp": "2019-12-26T20:31:11+08:00",
+          "tree_id": "d352ba9ce3423683ff6d51cb3fe8f51d6bb5fda2",
+          "url": "https://github.com/umijs/umi-server/commit/cac48c262f65b2b14d2be34013137b4c2300469b"
+        },
+        "date": 1577363682294,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "render /",
+            "value": 376,
+            "range": "±161.65%",
+            "unit": "ops/sec",
+            "extra": "71 samples"
+          },
+          {
+            "name": "render /news/1",
+            "value": 2580,
+            "range": "±2.01%",
+            "unit": "ops/sec",
+            "extra": "80 samples"
           }
         ]
       }
