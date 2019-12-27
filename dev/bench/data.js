@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1577363687694,
+  "lastUpdate": 1577432456387,
   "repoUrl": "https://github.com/umijs/umi-server",
   "entries": {
     "Benchmark": [
@@ -950,6 +950,44 @@ window.BENCHMARK_DATA = {
             "range": "±1.71%",
             "unit": "ops/sec",
             "extra": "77 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "45808948@qq.com",
+            "name": "信鑫-King",
+            "username": "ycjcl868"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1d173fde06719d818565f2eb6efb20ba1d6d4ef1",
+          "message": "feat: umi-plugin-prerender include (#63)\n\n* feat: umi-plugin-prerender include\r\n\r\n* tweak: use ts optional chain\r\n\r\n* tweak: use ts optional chain\r\n\r\n* fix: windows",
+          "timestamp": "2019-12-27T15:37:37+08:00",
+          "tree_id": "2ec71d3da01dc56cc4b04e26e403164b60d4396d",
+          "url": "https://github.com/umijs/umi-server/commit/1d173fde06719d818565f2eb6efb20ba1d6d4ef1"
+        },
+        "date": 1577432455850,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "render /",
+            "value": 395,
+            "range": "±169.17%",
+            "unit": "ops/sec",
+            "extra": "69 samples"
+          },
+          {
+            "name": "render /news/1",
+            "value": 3602,
+            "range": "±2.06%",
+            "unit": "ops/sec",
+            "extra": "78 samples"
           }
         ]
       }
