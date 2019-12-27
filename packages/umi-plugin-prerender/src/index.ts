@@ -8,6 +8,7 @@ import { IConfig } from 'umi-server/lib/index';
 import { getStaticRoutePaths, getSuffix, fixHtmlSuffix, findJSON } from './utils';
 
 export interface IOpts extends IConfig {
+  include?: string[];
   exclude?: string[];
   /** disable ssr BOM polyfill */
   disablePolyfill?: boolean;
@@ -19,6 +20,7 @@ export interface IOpts extends IConfig {
 export default (api: IApi, opts: IOpts) => {
   const { debug, config, findJS, log } = api;
   const {
+    include = [],
     exclude = [],
     htmlSuffix = false,
     disablePolyfill = false,
@@ -60,8 +62,10 @@ export default (api: IApi, opts: IOpts) => {
       path => !/(\?|\)|\()/g.test(path),
     );
 
-    // exclude render paths
-    const renderPaths = routePaths.filter(path => !exclude.includes(path));
+    // get render paths
+    const renderPaths = routePaths
+      .filter(path => (include?.length > 0 ? include.includes(path) : true))
+      .filter(path => !exclude.includes(path));
     debug(`renderPaths: ${renderPaths.join(',')}`);
     log.start('umiJS prerender start');
     // loop routes

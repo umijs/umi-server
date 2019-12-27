@@ -4,7 +4,6 @@ import isPlainObject from 'lodash/isPlainObject';
 import merge from 'lodash/merge';
 import { parse } from 'url';
 import { load } from 'cheerio';
-import _log from './debug';
 import { IHandler, IRenderOpts, IFilterContext } from './index';
 
 type IFilterRootContainer = (
@@ -26,9 +25,9 @@ export const filterRootContainer: IFilterRootContainer = (html, functor) => {
   const placeholderExp = /<!-- UMI_SERVER_TMP_PLACEHOLDER -->/gs;
   const placeholder = '<body><!-- UMI_SERVER_TMP_PLACEHOLDER --></body>';
   const layout = html.replace(bodyExp, placeholder);
-  const root = html.match(bodyExp) ? html.match(bodyExp)[1] : '';
+  const root = html.match(bodyExp)?.[1] || '';
   const matchPublicPath = root.match(/<script.*src="([^"]*)\/?umi\.(\w+\.)?js"[^>]*>/i);
-  const publicPath = matchPublicPath ? matchPublicPath[1] : '/';
+  const publicPath = matchPublicPath?.[1] || '/';
   const context = {
     publicPath,
   };
@@ -104,8 +103,8 @@ export const nodePolyfillDecorator: INodePolyfillDecorator = (
       const { url } = context;
       const { polyfill, runInMockContext } = renderOpts;
       let nextOrigin = url;
-      if (typeof polyfill === 'object' && polyfill.host) {
-        nextOrigin = `${polyfill.host}${url}`;
+      if ((polyfill as any)?.host) {
+        nextOrigin = `${(polyfill as any).host}${url}`;
       }
       const { protocol, host } = parse(origin);
       const nextUrl = /^https?:\/\//.test(nextOrigin) ? nextOrigin : `${protocol}//${host}${url}`;
@@ -115,16 +114,14 @@ export const nodePolyfillDecorator: INodePolyfillDecorator = (
         writable: true,
         value: {
           // patch window.location.origin
-          origin: `${nextObj.protocol}//${nextObj.hostname}${
-            nextObj.port ? `:${nextObj.port}` : ''
-          }`,
+          origin: `${nextObj.protocol}//${nextObj.hostname}${nextObj?.port || ''}`,
           ...nextObj,
         },
       });
       // @ts-ignore
       global.location = {
         // patch location.origin
-        origin: `${nextObj.protocol}//${nextObj.hostname}${nextObj.port ? `:${nextObj.port}` : ''}`,
+        origin: `${nextObj.protocol}//${nextObj.hostname}${nextObj?.port || ''}`,
         ...nextObj,
       };
       if (runInMockContext) {

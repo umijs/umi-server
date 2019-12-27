@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`normal include test 1`] = `"<!DOCTYPE html><html data-reactroot><head><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;</script><script>window.routerBase = \\"/\\";</script></head><body><div id=\\"root\\"><div class=\\"normal___1KW4T\\"><h1>Page index</h1><h2>csr: <!-- -->http://127.0.0.1:8000</h2></div></div><script>window.g_initialData = {\\"data\\":{\\"ssr\\":\\"http:\\\\u002F\\\\u002F127.0.0.1:7001\\",\\"csr\\":\\"http:\\\\u002F\\\\u002F127.0.0.1:8000\\"}};</script><script src=\\"/umi.js\\"></script></body></html>"`;

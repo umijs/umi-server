@@ -3,7 +3,6 @@ import { join } from 'path';
 import { load } from 'cheerio';
 import * as React from 'react';
 import compose from './compose';
-import _log from './debug';
 import {
   nodePolyfillDecorator,
   injectChunkMaps,
@@ -93,8 +92,7 @@ const server: IServer = config => {
     customRender,
     dev = process.env.NODE_ENV === 'development',
   } = config;
-  const polyfillHost =
-    typeof polyfill === 'object' && polyfill.host ? polyfill.host : 'http://localhost';
+  const polyfillHost = (polyfill as any)?.host || 'http://localhost';
   const nodePolyfill = nodePolyfillDecorator(!!polyfill, polyfillHost);
   const serverRender = require(filename);
   const manifestFile = require(manifest);
@@ -104,8 +102,6 @@ const server: IServer = config => {
     delete require.cache[require.resolve(manifest)];
   }
   const { ReactDOMServer } = serverRender;
-
-  _log('manifestFile', _log);
 
   return async (ctx, renderOpts = {}) => {
     const {

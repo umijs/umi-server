@@ -20,6 +20,7 @@ extends [IConfig](https://github.com/umijs/umi-server/tree/master/packages/umi-s
 
 ```typescript
 export interface IOpts extends IConfig {
+  include?: string[];
   exclude?: string[];
   /** disable ssr BOM polyfill */
   disablePolyfill?: boolean;
@@ -29,6 +30,7 @@ export interface IOpts extends IConfig {
 }
 ```
 
+- include: include routes to pre render
 - exclude: exclude routes not pre render
 - disablePolyfill: disable `ssr-polyfill` for client window object
 - runInMockContext: you mock global

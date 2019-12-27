@@ -116,7 +116,7 @@ const render = server({
 
 ```js
 import React from 'react';
-import isBrowser from 'umi-server/lib/isBrowser';
+import { isBrowser } from 'umi-server';
 
 export default () => {
   const env = isBrowser() ? 'client' : 'server';
