@@ -2,7 +2,7 @@
   "scripts": {
     "build": "concurrently \"npm run build:umi\" \"npm run build:fc\"",
     "build:umi": "umi build",
-    "build:fc": "ncc build index.ts -o dist",
+    "build:fc": "node ./scripts/build",
     "deploy": "npm run build && fun deploy -t ./template.yml"
   },
   "engines": {
