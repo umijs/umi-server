@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1577496927924,
+  "lastUpdate": 1577496932845,
   "repoUrl": "https://github.com/umijs/umi-server",
   "entries": {
     "Benchmark": [
@@ -1102,6 +1102,44 @@ window.BENCHMARK_DATA = {
             "range": "±1.58%",
             "unit": "ops/sec",
             "extra": "79 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "45808948@qq.com",
+            "name": "ycjcl868",
+            "username": "ycjcl868"
+          },
+          "committer": {
+            "email": "45808948@qq.com",
+            "name": "ycjcl868",
+            "username": "ycjcl868"
+          },
+          "distinct": true,
+          "id": "0a5c8c31b27ef44d349ec3139ed9f8de316af7c5",
+          "message": "fix: aliyun fc build",
+          "timestamp": "2019-12-28T09:31:56+08:00",
+          "tree_id": "3f8d6802138b85d5b9b5434cb359600ba9a60162",
+          "url": "https://github.com/umijs/umi-server/commit/0a5c8c31b27ef44d349ec3139ed9f8de316af7c5"
+        },
+        "date": 1577496932207,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "render /",
+            "value": 416,
+            "range": "±169.31%",
+            "unit": "ops/sec",
+            "extra": "66 samples"
+          },
+          {
+            "name": "render /news/1",
+            "value": 3952,
+            "range": "±2.23%",
+            "unit": "ops/sec",
+            "extra": "74 samples"
           }
         ]
       }
