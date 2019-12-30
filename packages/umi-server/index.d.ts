@@ -1,6 +1,6 @@
 // @ts-ignore
-import { IConfig, IContext, IResult, IServer } from './lib';
+import { Config, Context, Result, Server } from './lib';
 
-declare const IUmiServer: IServer;
+declare const UmiServer: Server;
 
-export = IUmiServer;
+export = UmiServer;

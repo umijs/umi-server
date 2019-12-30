@@ -12,6 +12,7 @@ const render = server({
   root,
   polyfill: false,
   dev: isDev,
+  stream: true,
 });
 
 const app = new Koa();
@@ -28,13 +29,13 @@ app.use(async (ctx, next) => {
   if (!ext) {
     ctx.type = 'text/html';
     ctx.status = 200;
-    const { ssrHtml } = await render({
+    const { ssrStream } = await render({
       req: {
         url: ctx.request.url,
       },
     });
 
-    ctx.body = ssrHtml;
+    ctx.body = ssrStream;
   } else {
     await next();
   }

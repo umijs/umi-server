@@ -4,11 +4,11 @@ import isPlainObject from 'lodash/isPlainObject';
 import merge from 'lodash/merge';
 import { parse } from 'url';
 import { load } from 'cheerio';
-import { IHandler, IRenderOpts, IFilterContext } from './index';
+import { Handler, RenderOpts, FilterContext } from './index';
 
-type IFilterRootContainer = (
+type FilterRootContainer = (
   ssrHtml: string,
-  functor?: (html: string, context?: IFilterContext) => string,
+  functor?: (html: string, context?: FilterContext) => string,
 ) => string;
 /**
  * root html fragment string not parse by cheerio for better perfs
@@ -20,7 +20,7 @@ type IFilterRootContainer = (
  * @param html React server render origin html string
  * @param functor layout html functor for hanlders using cheerio
  */
-export const filterRootContainer: IFilterRootContainer = (html, functor) => {
+export const filterRootContainer: FilterRootContainer = (html, functor) => {
   const bodyExp = /<body>(.*?)<\/body>/is;
   const placeholderExp = /<!-- UMI_SERVER_TMP_PLACEHOLDER -->/gs;
   const placeholder = '<body><!-- UMI_SERVER_TMP_PLACEHOLDER --></body>';
@@ -44,7 +44,7 @@ export const _getDocumentHandler: typeof load = (html, option = {}) => {
   });
 };
 
-export const injectChunkMaps: IHandler = ($, args) => {
+export const injectChunkMaps: Handler = ($, args) => {
   const { chunkMap, publicPath = '/' } = args;
   const { js = [], css = [] } = chunkMap || {};
   // filter umi.css and umi.*.css, htmlMap have includes
@@ -68,7 +68,7 @@ export const injectChunkMaps: IHandler = ($, args) => {
 export type INodePolyfillDecorator = (
   enable: boolean,
   url?: string,
-) => (renderOpts?: IRenderOpts, context?: { url: string }) => void;
+) => (renderOpts?: RenderOpts, context?: { url: string }) => void;
 
 export const nodePolyfillDecorator: INodePolyfillDecorator = (
   enable = false,

@@ -138,13 +138,13 @@ export default () => {
 | staticMarkup | use [renderToStaticMarkup](https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup) | boolean | -- | false |
 | postProcessHtml | handler function for user to modify render html accounding cheerio | ($, args) => $ | Array | -- | $ => $ |
 | customRender | custom Render function | (IResult) => Promise<string> |  | -- | ReactDOMServer.renderToString |
-| serverless | TODO: Serverless mode |  | -- | -- |
+| stream | use renderToNodeStream, better perf | Boolean | -- | false |
 
 ### render Component/Page
 
 server-side render using current `req.url` to match the current page or component.
 
-**IResult = render(ctx, renderOpts)**
+**Result = render(ctx, renderOpts)**
 
 ```js
 (req, res) => {
@@ -185,7 +185,7 @@ more example usages in [test cases](https://github.com/umijs/umi-server/tree/mas
 
 ## TODO
 
+- [x] Serverless
+- [x] Support stream render
 - [ ] Support `react-helmet` and `react-document-title` handler
-- [ ] Support renderToNodeStream
 - [ ] Better performance
-- [ ] Serverless

@@ -13,7 +13,8 @@
   ],
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "ssr-polyfill": "^1.0.0"
+    "ssr-polyfill": "^1.0.0",
+    "string-to-stream": "^3.0.1"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.13",

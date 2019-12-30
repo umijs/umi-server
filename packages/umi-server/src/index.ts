@@ -2,6 +2,7 @@
 import { join } from 'path';
 import { load } from 'cheerio';
 import * as React from 'react';
+import str2stream from 'string-to-stream';
 import compose from './compose';
 import {
   nodePolyfillDecorator,
@@ -10,84 +11,86 @@ import {
   filterRootContainer,
 } from './utils';
 
-interface IDynamicChunkMap {
+interface DynamicChunkMap {
   js: string[];
   css: string[];
 }
 
-export interface IFilterContext {
+export interface FilterContext {
   publicPath: string;
 }
 
-export interface IArgs extends Partial<IFilterContext> {
-  chunkMap: IDynamicChunkMap;
+export interface Args extends Partial<FilterContext> {
+  chunkMap: DynamicChunkMap;
 }
 type cheerio = ReturnType<typeof load>;
-export type IHandler = ($: cheerio, args: IArgs) => cheerio;
+export type Handler = ($: cheerio, args: Args) => cheerio;
 
-export interface IPolyfill {
+export interface Polyfill {
   host?: string;
 }
 
-type IContextFunc = () => object;
+type ContextFunc = () => object;
 
-export interface IConfig {
+export interface Config {
   /** prefix path for `filename` and `manifest`, if both in the same directory */
   root?: string;
+  /** use renderToNodeStream, better perf */
+  stream?: boolean;
   /** ssr manifest, default: `${root}/ssr-client-mainifest.json` */
   manifest?: string;
   /** umi ssr server file, default: `${root}/umi.server.js` */
   filename?: string;
   /** default false */
-  polyfill?: boolean | IPolyfill;
+  polyfill?: boolean | Polyfill;
   /** use renderToStaticMarkup  */
   staticMarkup?: boolean;
   /** replace the default ReactDOMServer.renderToString */
-  customRender?: (args: IRenderArgs) => Promise<string>;
+  customRender?: (args: RenderArgs) => Promise<string>;
   /** handler function for user to modify render html accounding cheerio */
-  postProcessHtml?: IHandler | IHandler[];
+  postProcessHtml?: Handler | Handler[];
   /** is dev env, default NODE_ENV=development */
   dev?: boolean;
   /** TODO: serverless */
   serverless?: boolean;
 }
 
-export interface IRenderOpts extends Pick<IConfig, 'polyfill'> {
+export interface RenderOpts extends Pick<Config, 'polyfill'> {
   /** mock global object like { g_lang: 'zh-CN' } => global.window.g_lang / global.g_lang  */
-  runInMockContext?: object | IContextFunc;
+  runInMockContext?: object | ContextFunc;
 }
 
-export interface IRenderArgs {
+export interface RenderArgs {
   htmlElement: React.ReactNode;
   rootContainer: React.ReactNode;
   matchPath: string;
   g_initialData: any;
-  chunkMap?: IDynamicChunkMap;
+  chunkMap?: DynamicChunkMap;
 }
 
-export interface IContext {
+export interface Context {
   req: {
     url: string;
   };
 }
 
-export interface IResult {
-  ssrHtml: string;
+export interface Result {
+  ssrHtml?: string;
+  ssrStream?: NodeJS.ReadableStream;
   matchPath: string;
-  chunkMap?: IDynamicChunkMap;
+  chunkMap?: DynamicChunkMap;
 }
 
-export type IServer = (
-  config: IConfig,
-) => (ctx: IContext, renderOpts?: IRenderOpts) => Promise<IResult>;
+export type Server = (config: Config) => (ctx: Context, renderOpts?: RenderOpts) => Promise<Result>;
 
-const server: IServer = config => {
+const server: Server = config => {
   const {
     root,
     manifest = join(root, 'ssr-client-mainifest.json'),
     filename = join(root, 'umi.server'),
     staticMarkup = false,
     polyfill = false,
+    stream = false,
     postProcessHtml = $ => $,
     customRender,
     dev = process.env.NODE_ENV === 'development',
@@ -111,7 +114,7 @@ const server: IServer = config => {
     nodePolyfill(renderOpts, {
       url,
     });
-    const serverRenderRes: Omit<IRenderArgs, 'chunkMap'> = await serverRender.default(ctx);
+    const serverRenderRes: Omit<RenderArgs, 'chunkMap'> = await serverRender.default(ctx);
     const { htmlElement, matchPath, g_initialData } = serverRenderRes;
     // if not found, return undefined
     if (!matchPath) {
@@ -122,7 +125,7 @@ const server: IServer = config => {
         g_initialData: {},
       };
     }
-    const chunkMap: IDynamicChunkMap = manifestFile[matchPath];
+    const chunkMap: DynamicChunkMap = manifestFile[matchPath];
     const reactRender = ReactDOMServer[staticMarkup ? 'renderToStaticMarkup' : 'renderToString'];
 
     const renderString: string =
@@ -151,13 +154,24 @@ const server: IServer = config => {
       return composeRender($, handlerOpts).html();
     });
 
+    const result = {
+      matchPath,
+      chunkMap,
+      g_initialData,
+    };
+
+    if (stream) {
+      return {
+        ssrStream: str2stream(ssrHtml),
+        ...result,
+      };
+    }
+
     // enable render rootContainer
     // const ssrHtmlElement =
     return {
       ssrHtml,
-      matchPath,
-      chunkMap,
-      g_initialData,
+      ...result,
     };
   };
 };

@@ -76,6 +76,8 @@ console.log('http://localhost:8000')
 
 Visit [http://localhost:8000](http://localhost:8000).
 
+Use Stream render: [examples/koajs](https://github.com/umijs/umi-server/blob/master/examples/koajs)
+
 ## 📈 Benchmark
 
 https://umijs.github.io/umi-server/dev/bench/index.html
