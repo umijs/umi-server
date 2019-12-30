@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1577496932845,
+  "lastUpdate": 1577703311925,
   "repoUrl": "https://github.com/umijs/umi-server",
   "entries": {
     "Benchmark": [
@@ -1140,6 +1140,44 @@ window.BENCHMARK_DATA = {
             "range": "±2.23%",
             "unit": "ops/sec",
             "extra": "74 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "45808948@qq.com",
+            "name": "信鑫-King",
+            "username": "ycjcl868"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d26d878294f420e0e6f796d2f6a27afe885efe6c",
+          "message": "feat: support stream (#64)\n\n* feat: add doc\r\n\r\n* feat: support stream render\r\n\r\n* reset: normal",
+          "timestamp": "2019-12-30T18:51:58+08:00",
+          "tree_id": "02f9bb57ae2cea31aabb004c3bcb2862edf16c90",
+          "url": "https://github.com/umijs/umi-server/commit/d26d878294f420e0e6f796d2f6a27afe885efe6c"
+        },
+        "date": 1577703311450,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "render /",
+            "value": 471,
+            "range": "±169.62%",
+            "unit": "ops/sec",
+            "extra": "68 samples"
+          },
+          {
+            "name": "render /news/1",
+            "value": 4457,
+            "range": "±2.64%",
+            "unit": "ops/sec",
+            "extra": "76 samples"
           }
         ]
       }
