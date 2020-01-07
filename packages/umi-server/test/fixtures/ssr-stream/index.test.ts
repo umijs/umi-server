@@ -11,6 +11,5 @@ test('ssr stream', async () => {
       url: '/',
     },
   });
-  console.log('ssrStream', ssrStream);
   expect(ssrStream._str).toMatchSnapshot();
 });

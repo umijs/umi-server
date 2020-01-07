@@ -8,6 +8,7 @@
     "publish": "npm run changelog && npm run build && lerna publish",
     "startBuild": "node scripts/startBuild.js",
     "benchmark": "node packages/umi-server/test/fixtures/ssr/benchmark.js",
+    "test:update": "npm run startBuild && umi-test --update-snapshot",
     "test": "npm run startBuild && npm run test:coverage",
     "test:coverage": "umi-test --coverage",
     "test:spec": "umi-test",

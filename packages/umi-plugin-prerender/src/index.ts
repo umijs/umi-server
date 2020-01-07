@@ -5,7 +5,7 @@ import * as mkdirp from 'mkdirp';
 import server from 'umi-server';
 // @ts-ignore
 import { IConfig } from 'umi-server/lib/index';
-import { getStaticRoutePaths, getSuffix, fixHtmlSuffix, findJSON } from './utils';
+import { getStaticRoutePaths, fixHtmlSuffix, findJSON, isDynamicRoute, routeToFile } from './utils';
 
 export interface IOpts extends IConfig {
   include?: string[];
@@ -46,6 +46,7 @@ export default (api: IApi, opts: IOpts) => {
     const { manifestFileName = 'ssr-client-mainifest.json' } = config.ssr as any;
 
     // require serverRender function
+    const defaultHtmlTemplate = fs.readFileSync(path.join(absOutputPath, 'index.html'), 'utf-8');
     const filename = findJS(absOutputPath, 'umi.server');
     const manifest = findJSON(absOutputPath, manifestFileName);
     if (!filename) {
@@ -58,9 +59,7 @@ export default (api: IApi, opts: IOpts) => {
       ...restOpts,
     });
 
-    const routePaths: string[] = getStaticRoutePaths(_, routes).filter(
-      path => !/(\?|\)|\()/g.test(path),
-    );
+    const routePaths: string[] = getStaticRoutePaths(_, routes);
 
     // get render paths
     const renderPaths = routePaths
@@ -80,17 +79,25 @@ export default (api: IApi, opts: IOpts) => {
         },
       };
 
-      const { ssrHtml } = await render(ctx, {
-        runInMockContext,
-      });
-      const dir = url.substring(0, url.lastIndexOf('/'));
-      const filename = getSuffix(url.substring(url.lastIndexOf('/') + 1, url.length));
+      let ssrHtml = defaultHtmlTemplate;
+
+      // 动态路由走默认 default.html
+      if (!isDynamicRoute(url)) {
+        const serverRenderRes = await render(ctx, {
+          runInMockContext,
+        });
+        ssrHtml = serverRenderRes?.ssrHtml || defaultHtmlTemplate;
+      }
+
+      const filename = routeToFile(url);
       try {
         // write html file
-        const outputRoutePath = path.join(absOutputPath, dir);
-        mkdirp.sync(outputRoutePath);
-        fs.writeFileSync(path.join(outputRoutePath, filename), ssrHtml);
-        log.complete(`${path.join(dir, filename)}`);
+        const outputRoutePath = path.join(absOutputPath, filename);
+        const dir = path.join(absOutputPath, filename.substring(0, filename.lastIndexOf('/')));
+        console.log('dirdirdir', dir);
+        mkdirp.sync(dir);
+        fs.writeFileSync(outputRoutePath, ssrHtml);
+        log.complete(`${path.join(filename, filename)}`);
       } catch (e) {
         log.fatal(`${url} render ${filename} failed`, e);
       }
@@ -98,3 +105,6 @@ export default (api: IApi, opts: IOpts) => {
     log.success('umiJS prerender success!');
   });
 };
+
+/** export routeToFile logic */
+export { routeToFile };

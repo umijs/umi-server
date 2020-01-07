@@ -4,6 +4,26 @@ exports[`normal-static-markup test 1`] = `"<!DOCTYPE html><html><head><meta char
 
 exports[`normal-static-markup test 2`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;</script><script>window.routerBase = \\"/\\";</script></head><body><div id=\\"root\\"><div>news Index</div></div><script>window.g_initialData = {};</script><script src=\\"/dist/umi.js\\"></script></body></html>"`;
 
-exports[`normal-static-markup test 3`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;</script><script>window.routerBase = \\"/\\";</script></head><body><div id=\\"root\\"><h3>detail</h3></div><script>window.g_initialData = {};</script><script src=\\"/dist/umi.js\\"></script></body></html>"`;
+exports[`normal-static-markup test 3`] = `
+"<!DOCTYPE html><html><head>
 
-exports[`normal-static-markup test 4`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;</script><script>window.routerBase = \\"/\\";</script></head><body><div id=\\"root\\"><div class=\\"normal___1KMnC\\"><h1>Page users111</h1><h2>users</h2><ul><li>foo</li><li>bar</li></ul></div></div><script>window.g_initialData = {\\"list\\":[\\"foo\\",\\"bar\\"]};</script><script src=\\"/dist/umi.js\\"></script></body></html>"`;
+<meta charset=\\"utf-8\\">
+<meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\">
+
+<script>
+  window.routerBase = \\"/\\";
+</script>
+</head>
+<body>
+
+<div id=\\"root\\"></div>
+
+<script src=\\"/dist/umi.js\\"></script>
+
+
+</body></html>"
+`;
+
+exports[`normal-static-markup test 4`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;</script><script>window.routerBase = \\"/\\";</script></head><body><div id=\\"root\\"><h3>detail</h3></div><script>window.g_initialData = {};</script><script src=\\"/dist/umi.js\\"></script></body></html>"`;
+
+exports[`normal-static-markup test 5`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\\"><script>window.g_useSSR=true;</script><script>window.routerBase = \\"/\\";</script></head><body><div id=\\"root\\"><div class=\\"normal___1KMnC\\"><h1>Page users111</h1><h2>users</h2><ul><li>foo</li><li>bar</li></ul></div></div><script>window.g_initialData = {\\"list\\":[\\"foo\\",\\"bar\\"]};</script><script src=\\"/dist/umi.js\\"></script></body></html>"`;

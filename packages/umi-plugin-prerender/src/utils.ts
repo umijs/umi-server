@@ -1,5 +1,5 @@
 export const isDynamicRoute = (path: string): boolean =>
-  path.split('/').some(snippet => snippet.startsWith(':'));
+  !!path?.split('/')?.some?.(snippet => snippet.startsWith(':'));
 
 export const removeSuffixHtml = (path: string): string =>
   path
@@ -21,13 +21,7 @@ export const findJSON = (baseDir, fileName) => {
 };
 
 export const fixHtmlSuffix = route => {
-  if (
-    route.path &&
-    route.path !== '/' &&
-    !isHtmlPath(route.path) &&
-    !isDynamicRoute(route.path) &&
-    !route.redirect
-  ) {
+  if (route.path && route.path !== '/' && !isHtmlPath(route.path) && !route.redirect) {
     route.path = `${route.path}(.html)?`;
   }
 };
@@ -35,8 +29,7 @@ export const fixHtmlSuffix = route => {
 export const getStaticRoutePaths = (_, routes) =>
   _.uniq(
     routes.reduce((memo, route) => {
-      // filter dynamic Routing like /news/:id, etc.
-      if (route.path && !isDynamicRoute(route.path) && !route.redirect) {
+      if (route.path && !route.redirect) {
         memo.push(removeSuffixHtml(route.path));
         if (route.routes) {
           memo = memo.concat(getStaticRoutePaths(_, route.routes));
@@ -46,4 +39,20 @@ export const getStaticRoutePaths = (_, routes) =>
     }, []),
   );
 
-export const getSuffix = (filename: string): string => `${filename || 'index'}.html`;
+/**
+ * convert route path into file path
+ * / => index.html
+ * /a/b => a/b.html
+ * /a/:id => a/[id].html
+ * /a/b/:id/:id => a/b/[id]/[id].html
+ *
+ * @param path
+ */
+export const routeToFile = (path: string): string => {
+  const pathArr = path?.split('/')?.map?.(p => {
+    const normalPath = removeSuffixHtml(p);
+    return isDynamicRoute(normalPath) ? `[${normalPath.replace(/:/g, '')}]` : normalPath;
+  });
+  const pathname = pathArr.slice(1).join('/');
+  return pathname ? `${pathname}.html` : 'index.html';
+};
