@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1577703384670,
+  "lastUpdate": 1578397878303,
   "repoUrl": "https://github.com/umijs/umi-server",
   "entries": {
     "Benchmark": [
@@ -1216,6 +1216,44 @@ window.BENCHMARK_DATA = {
             "range": "±2.51%",
             "unit": "ops/sec",
             "extra": "75 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "45808948@qq.com",
+            "name": "信鑫-King",
+            "username": "ycjcl868"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7af8164661e066591b5b70d02803a95e1c2ef555",
+          "message": "fix: dynamic router use default html template (#67)",
+          "timestamp": "2020-01-07T19:47:26+08:00",
+          "tree_id": "00b6a39d73f5b18184738c887b1532ba1d9a7450",
+          "url": "https://github.com/umijs/umi-server/commit/7af8164661e066591b5b70d02803a95e1c2ef555"
+        },
+        "date": 1578397877839,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "render /",
+            "value": 366,
+            "range": "±168.74%",
+            "unit": "ops/sec",
+            "extra": "69 samples"
+          },
+          {
+            "name": "render /news/1",
+            "value": 3204,
+            "range": "±3.02%",
+            "unit": "ops/sec",
+            "extra": "71 samples"
           }
         ]
       }
