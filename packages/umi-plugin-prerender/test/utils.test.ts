@@ -6,6 +6,9 @@ describe('umi-plugin-prerender utils', () => {
     expect(routeToFile('/')).toEqual('index.html');
     expect(routeToFile('/a')).toEqual('a.html');
     expect(routeToFile('/a/b')).toEqual('a/b.html');
+    expect(routeToFile('/a/b/:id')).toEqual('a/b/[id].html');
+    expect(routeToFile('cn/a/b/:id')).toEqual('cn/a/b/[id].html');
+    expect(routeToFile('/a/b/:id')).toEqual('a/b/[id].html');
     expect(routeToFile('/a/:id')).toEqual('a/[id].html');
     expect(routeToFile('/a/:id/:id')).toEqual('a/[id]/[id].html');
     expect(routeToFile('/a/:foo/b/:bar')).toEqual('a/[foo]/b/[bar].html');

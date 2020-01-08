@@ -94,7 +94,6 @@ export default (api: IApi, opts: IOpts) => {
         // write html file
         const outputRoutePath = path.join(absOutputPath, filename);
         const dir = path.join(absOutputPath, filename.substring(0, filename.lastIndexOf('/')));
-        console.log('dirdirdir', dir);
         mkdirp.sync(dir);
         fs.writeFileSync(outputRoutePath, ssrHtml);
         log.complete(`${path.join(filename, filename)}`);

@@ -1,6 +1,7 @@
 module.exports = {
   extends: [require.resolve('@umijs/fabric/dist/eslint')],
   rules: {
+    'no-console': ['error', { allow: ['warn', 'error'] }],
     'no-underscore-dangle': [0],
     'import/no-extraneous-dependencies': [0],
     'global-require': [0],

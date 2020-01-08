@@ -53,6 +53,7 @@ export const routeToFile = (path: string): string => {
     const normalPath = removeSuffixHtml(p);
     return isDynamicRoute(normalPath) ? `[${normalPath.replace(/:/g, '')}]` : normalPath;
   });
-  const pathname = pathArr.slice(1).join('/');
+  // for basement render, join ${host}/${renderRoutes}
+  const pathname = path.startsWith('/') ? pathArr.slice(1).join('/') : pathArr.join('/');
   return pathname ? `${pathname}.html` : 'index.html';
 };
