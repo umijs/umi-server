@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1578398026145,
+  "lastUpdate": 1578451173060,
   "repoUrl": "https://github.com/umijs/umi-server",
   "entries": {
     "Benchmark": [
@@ -1292,6 +1292,44 @@ window.BENCHMARK_DATA = {
             "range": "±2.45%",
             "unit": "ops/sec",
             "extra": "77 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "45808948@qq.com",
+            "name": "信鑫-King",
+            "username": "ycjcl868"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ace379b6f88a1be42b304bba1cc14003d4ff4272",
+          "message": "fix: prerender prefix slash (#68)\n\n* fix: prerender\r\n\r\n* fix: routeToFile filter prefix slash\r\n\r\n* :memo: docs",
+          "timestamp": "2020-01-08T10:36:13+08:00",
+          "tree_id": "6f0b107e0edeaa5d50f7541d2862885736856854",
+          "url": "https://github.com/umijs/umi-server/commit/ace379b6f88a1be42b304bba1cc14003d4ff4272"
+        },
+        "date": 1578451172602,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "render /",
+            "value": 469,
+            "range": "±170.90%",
+            "unit": "ops/sec",
+            "extra": "69 samples"
+          },
+          {
+            "name": "render /news/1",
+            "value": 4260,
+            "range": "±2.17%",
+            "unit": "ops/sec",
+            "extra": "76 samples"
           }
         ]
       }
