@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1579074650996,
+  "lastUpdate": 1579074656234,
   "repoUrl": "https://github.com/umijs/umi-server",
   "entries": {
     "Benchmark": [
@@ -1406,6 +1406,44 @@ window.BENCHMARK_DATA = {
             "range": "±1.79%",
             "unit": "ops/sec",
             "extra": "77 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "45808948@qq.com",
+            "name": "信鑫-King",
+            "username": "ycjcl868"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "98ebca8bf4ba53d522cdfc344dcd5f79c19b02f4",
+          "message": "fix: ssr-polyfill (#70)\n\n* fix: ssr-polyfill\r\n\r\n* fix: ssr-polyfill require\r\n\r\n* fix: node version",
+          "timestamp": "2020-01-15T15:47:00+08:00",
+          "tree_id": "a8acffa477293789fb4cc9a167f02f288ca24c51",
+          "url": "https://github.com/umijs/umi-server/commit/98ebca8bf4ba53d522cdfc344dcd5f79c19b02f4"
+        },
+        "date": 1579074655553,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "render /",
+            "value": 370,
+            "range": "±168.83%",
+            "unit": "ops/sec",
+            "extra": "67 samples"
+          },
+          {
+            "name": "render /news/1",
+            "value": 3337,
+            "range": "±2.57%",
+            "unit": "ops/sec",
+            "extra": "78 samples"
           }
         ]
       }
