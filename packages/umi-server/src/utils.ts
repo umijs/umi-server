@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import ssrPolyfill from 'ssr-polyfill';
 import isPlainObject from 'lodash/isPlainObject';
 import merge from 'lodash/merge';
 import { parse } from 'url';
@@ -78,6 +77,7 @@ export const nodePolyfillDecorator: INodePolyfillDecorator = (
   // @ts-ignore
   global.window = {};
   if (enable) {
+    const ssrPolyfill = require('ssr-polyfill');
     const mockWin = ssrPolyfill({
       url: origin,
     });

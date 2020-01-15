@@ -2,7 +2,6 @@ import { IApi } from 'umi-types';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as mkdirp from 'mkdirp';
-import server from 'umi-server';
 // @ts-ignore
 import { IConfig } from 'umi-server/lib/index';
 import { getStaticRoutePaths, fixHtmlSuffix, findJSON, isDynamicRoute, routeToFile } from './utils';
@@ -52,6 +51,7 @@ export default (api: IApi, opts: IOpts) => {
     if (!filename) {
       throw new Error("can't find umi.server.js file");
     }
+    const server = require('umi-server');
     const render = server({
       filename,
       manifest,
