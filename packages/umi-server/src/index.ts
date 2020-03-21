@@ -79,6 +79,7 @@ export interface Result {
   ssrStream?: NodeJS.ReadableStream;
   matchPath: string;
   chunkMap?: DynamicChunkMap;
+  g_initialData: any;
 }
 
 export type Server = (config: Config) => (ctx: Context, renderOpts?: RenderOpts) => Promise<Result>;
