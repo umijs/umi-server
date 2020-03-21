@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1579074779744,
+  "lastUpdate": 1584805542076,
   "repoUrl": "https://github.com/umijs/umi-server",
   "entries": {
     "Benchmark": [
@@ -1482,6 +1482,44 @@ window.BENCHMARK_DATA = {
             "range": "±1.95%",
             "unit": "ops/sec",
             "extra": "77 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "i@mrzhang.me",
+            "name": "神仙",
+            "username": "iamyinyue"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "499af32fe779c26848852806403100e9a895deeb",
+          "message": "fix: add g_initialData for Result interface (#74)",
+          "timestamp": "2020-03-21T23:41:55+08:00",
+          "tree_id": "2b20e98e840f1aeb426b109b723892b3d9b648a9",
+          "url": "https://github.com/umijs/umi-server/commit/499af32fe779c26848852806403100e9a895deeb"
+        },
+        "date": 1584805541578,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "render /",
+            "value": 435,
+            "range": "±156.20%",
+            "unit": "ops/sec",
+            "extra": "70 samples"
+          },
+          {
+            "name": "render /news/1",
+            "value": 2416,
+            "range": "±1.49%",
+            "unit": "ops/sec",
+            "extra": "78 samples"
           }
         ]
       }
