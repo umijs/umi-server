@@ -22,6 +22,8 @@ extends [IConfig](https://github.com/umijs/umi-server/tree/master/packages/umi-s
 export interface IOpts extends IConfig {
   include?: string[];
   exclude?: string[];
+  /** extra routes, for dynamic routes */
+  extra?: string[];
   /** disable ssr BOM polyfill */
   disablePolyfill?: boolean;
   // htmlSuffix

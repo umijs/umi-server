@@ -14,6 +14,8 @@ export interface IOpts extends IConfig {
   // htmlSuffix
   htmlSuffix?: boolean;
   runInMockContext?: object | (() => object);
+  // 额外的一些路由
+  extra?: string[];
 }
 
 export default (api: IApi, opts: IOpts) => {
@@ -24,6 +26,7 @@ export default (api: IApi, opts: IOpts) => {
     htmlSuffix = false,
     disablePolyfill = false,
     runInMockContext = {},
+    extra = [],
     ...restOpts
   } = opts || {};
   if (!config.ssr) {
@@ -63,6 +66,7 @@ export default (api: IApi, opts: IOpts) => {
 
     // get render paths
     const renderPaths = routePaths
+      .concat(extra)
       .filter(path => (include?.length > 0 ? include.includes(path) : true))
       .filter(path => !exclude.includes(path));
     debug(`renderPaths: ${renderPaths.join(',')}`);
