@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1584927101041,
+  "lastUpdate": 1584968646000,
   "repoUrl": "https://github.com/umijs/umi-server",
   "entries": {
     "Benchmark": [
@@ -1634,6 +1634,44 @@ window.BENCHMARK_DATA = {
             "range": "±1.92%",
             "unit": "ops/sec",
             "extra": "76 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "chaolin.jcl@alibaba-inc.com",
+            "name": "信鑫-King",
+            "username": "ycjcl868"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "967eb31fe69c36066855b37d83fcaf14d0aae5d8",
+          "message": "feat: support extra for dynamic route render (#75)",
+          "timestamp": "2020-03-23T21:00:28+08:00",
+          "tree_id": "15ef2eafcb9dc1731622c46273bb098cc2e6d8ab",
+          "url": "https://github.com/umijs/umi-server/commit/967eb31fe69c36066855b37d83fcaf14d0aae5d8"
+        },
+        "date": 1584968645566,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "render /",
+            "value": 543,
+            "range": "±155.40%",
+            "unit": "ops/sec",
+            "extra": "69 samples"
+          },
+          {
+            "name": "render /news/1",
+            "value": 2959,
+            "range": "±1.79%",
+            "unit": "ops/sec",
+            "extra": "77 samples"
           }
         ]
       }
